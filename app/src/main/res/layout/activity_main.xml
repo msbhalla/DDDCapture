@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scrollbars = "vertical"
+    android:fillViewport="true"
+    android:scrollbarStyle="insideInset">
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,7 +14,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:background="#E73A10"
+    android:background="#F05236"
     tools:context=".MainActivity">
 
     <LinearLayout
@@ -31,7 +37,7 @@
             android:text="User Registration"
             android:id="@+id/textView"
             android:textColor="#FFFFFF"
-            android:textSize="30dp"
+            android:textSize="20dp"
             android:layout_gravity="center_horizontal" />
 
         <EditText
@@ -79,3 +85,4 @@
     </LinearLayout>
 
 </RelativeLayout>
+</ScrollView>

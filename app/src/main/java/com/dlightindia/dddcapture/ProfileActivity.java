@@ -4,11 +4,15 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import android.widget.GridView;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 
 public class ProfileActivity extends AppCompatActivity implements View.OnClickListener {
@@ -24,6 +28,11 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE); //will hide the title
+        getSupportActionBar().setTitle("d.light Dealers App");
+        // hide the title bar
+        //this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+        //       WindowManager.LayoutParams.FLAG_FULLSCREEN); //enable full screen
         setContentView(R.layout.activity_profile);
 
         //initializing firebase authentication object
@@ -43,7 +52,6 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
         //initializing views
         textViewUserEmail = (TextView) findViewById(R.id.textViewUserEmail);
-        buttonLogout = (Button) findViewById(R.id.buttonLogout);
 
         //displaying logged in user name
         textViewUserEmail.setText("Welcome "+user.getEmail());
@@ -53,6 +61,35 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         // Instance of ImageAdapter Class
         gridView.setAdapter(new ImageAdapter(this));
 
+        /**
+         * On Click event for Single Gridview Item
+         * */
+        gridView.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View v,
+                                    int position, long id) {
+
+                Intent i=null;
+                if(position==0)
+                {
+                    i = new Intent(getApplicationContext(), AddNewLead.class);
+                }
+                if (position==1)
+                {
+                    i = new Intent(getApplicationContext(), UpdateLead.class);
+                }
+                if (position==2)
+                {
+                    i = new Intent(getApplicationContext(), AboutApp.class);
+                }
+
+                if(i!=null){
+                    startActivity(i);
+                }
+            }
+        });
+
+        buttonLogout = (Button) findViewById(R.id.buttonLogout);
         //adding listener to button
         buttonLogout.setOnClickListener(this);
     }
