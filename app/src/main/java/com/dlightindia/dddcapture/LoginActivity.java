@@ -18,6 +18,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
+import org.w3c.dom.Text;
+
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
 
@@ -26,6 +28,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private EditText editTextEmail;
     private EditText editTextPassword;
     private TextView textViewSignup;
+    private TextView textForgotPwd;
 
     //firebase auth object
     private FirebaseAuth firebaseAuth;
@@ -48,7 +51,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         //if the objects getcurrentuser method is not null
         //means user is already logged in
-        if(firebaseAuth.getCurrentUser() != null){
+        if (firebaseAuth.getCurrentUser() != null) {
             //close this activity
             finish();
             //opening profile activity
@@ -59,29 +62,66 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         editTextEmail = (EditText) findViewById(R.id.editTextEmail);
         editTextPassword = (EditText) findViewById(R.id.editTextPassword);
         buttonSignIn = (Button) findViewById(R.id.buttonSignin);
-        textViewSignup  = (TextView) findViewById(R.id.textViewSignUp);
+        textViewSignup = (TextView) findViewById(R.id.textViewSignUp);
+        textForgotPwd = (TextView) findViewById(R.id.textViewForgotPassword);
+
 
         progressDialog = new ProgressDialog(this);
 
         //attaching click listener
         buttonSignIn.setOnClickListener(this);
         textViewSignup.setOnClickListener(this);
+        textForgotPwd.setOnClickListener(this);
     }
 
-    //method for user login
-    private void userLogin(){
+
+    private void forgetPassword() {
         String email = editTextEmail.getText().toString().trim();
-        String password  = editTextPassword.getText().toString().trim();
-
-
         //checking if email and passwords are empty
-        if(TextUtils.isEmpty(email)){
-            Toast.makeText(this,"Please enter your email",Toast.LENGTH_LONG).show();
+        if (TextUtils.isEmpty(email)) {
+            Toast.makeText(this, "Please enter your email", Toast.LENGTH_LONG).show();
             return;
         }
 
-        if(TextUtils.isEmpty(password)){
-            Toast.makeText(this,"Please enter your password",Toast.LENGTH_LONG).show();
+        progressDialog.setMessage("Invoking password reset email. Please Wait...");
+        progressDialog.show();
+
+        FirebaseAuth.getInstance().sendPasswordResetEmail(editTextEmail.getText().toString().trim())
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+
+                                                @Override
+                                               public void onComplete(@NonNull Task<Void> task) {
+                                                    progressDialog.dismiss();
+                                                    if (task.isSuccessful()) {
+                                                       Toast.makeText(LoginActivity.this, "Please check your email", Toast.LENGTH_LONG).show();
+                                                        return;
+                                                   }
+                                                   else
+                                                   {
+                                                       Toast.makeText(LoginActivity.this, "Can't reset. "+task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                                                       editTextEmail.requestFocus();
+                                                       return;
+                                                   }
+                                               }
+                                           }
+                    );
+        }
+
+
+    //method for user login
+    private void userLogin() {
+        String email = editTextEmail.getText().toString().trim();
+        String password = editTextPassword.getText().toString().trim();
+
+
+        //checking if email and passwords are empty
+        if (TextUtils.isEmpty(email)) {
+            Toast.makeText(this, "Please enter your email", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        if (TextUtils.isEmpty(password)) {
+            Toast.makeText(this, "Please enter your password", Toast.LENGTH_LONG).show();
             return;
         }
 
@@ -98,14 +138,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         progressDialog.dismiss();
                         //if the task is successfull 
-                        if(task.isSuccessful()){
+                        if (task.isSuccessful()) {
                             //start the profile activity
                             finish();
                             startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
-                        }
-                        else
-                        {
-                            Toast.makeText(LoginActivity.this,task.getException().getMessage(),Toast.LENGTH_LONG).show();
+                        } else {
+                            Toast.makeText(LoginActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
                             return;
                         }
                     }
@@ -115,13 +153,18 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onClick(View view) {
-        if(view == buttonSignIn){
+        if (view == buttonSignIn) {
             userLogin();
         }
 
-        if(view == textViewSignup){
+        if (view == textViewSignup) {
             finish();
             startActivity(new Intent(this, MainActivity.class));
+        }
+
+        if (view == textForgotPwd) {
+            forgetPassword();
+
         }
     }
 }
