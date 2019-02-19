@@ -29,7 +29,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE); //will hide the title
-        getSupportActionBar().setTitle("d.light Dealers App");
+        getSupportActionBar().setTitle("d.light Sparsh");
         // hide the title bar
         //this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
         //       WindowManager.LayoutParams.FLAG_FULLSCREEN); //enable full screen
@@ -72,8 +72,8 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
                 Intent i=null;
                 if(position==0)
                 {
-                   // i = new Intent(getApplicationContext(), AddNewLead.class);
-                    i = new Intent(getApplicationContext(), AddNewLead_WebForm.class);
+                   i = new Intent(getApplicationContext(), AddNewLead.class);
+                   // i = new Intent(getApplicationContext(), AddNewLead_WebForm.class);
                 }
                 if (position==1)
                 {

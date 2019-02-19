@@ -28,6 +28,19 @@
                 android:layout_height="match_parent"
                 android:id="@+id/webViewWebForm"></WebView>
 
+            <ProgressBar
+                android:layout_marginTop="-7dp"
+                android:id="@+id/progressbar"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:background="@android:color/transparent"
+                android:indeterminate="false"
+                android:max="100"
+                android:progress="1"
+                 />
+
 
 
         </LinearLayout>
