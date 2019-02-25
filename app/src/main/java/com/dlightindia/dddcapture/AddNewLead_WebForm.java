@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.webkit.WebViewClient;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.view.View;
 
@@ -29,6 +30,8 @@ public class AddNewLead_WebForm extends AppCompatActivity {
         progressBar = (ProgressBar) findViewById(R.id.progressbar);
         progressBar.setMax(100);
         progressBar.setMin(0);
+
+
 
         myWebView.setWebChromeClient(new WebChromeClient() {
             public void onProgressChanged(WebView view, int progress) {

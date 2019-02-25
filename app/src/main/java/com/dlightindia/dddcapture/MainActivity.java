@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             return;
         }
 
-        if (!editTextEmail.toString().toLowerCase().contains("@dlight.com"))
+        if (!email.endsWith("@dlight.com"))
         {
             Toast.makeText(this,"Please enter your @dlight.com email address",Toast.LENGTH_LONG).show();
             return;

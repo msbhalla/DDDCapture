@@ -76,6 +76,8 @@ public class UpdateLead extends AppCompatActivity {
         textView = (TextView) findViewById(R.id.textViewUpdateLead);
         //this method will fetch and parse the data
         //loadHeroList();
+
+        textView.setText("Coming Soon");
         PostNSwithLeadData();
 
 

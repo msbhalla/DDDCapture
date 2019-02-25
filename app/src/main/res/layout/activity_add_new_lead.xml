@@ -30,86 +30,74 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="15dp"
                 android:text="Please add details of lead here. \n(All fields are mandatory)"
-                android:textSize="22dp" />
+                android:textAppearance="@android:style/TextAppearance.Material.Title" />
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp">
+                android:layout_marginTop="5dp">
 
                 <EditText
                     android:id="@+id/editTextSalesRepEmail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="15dp"
+                    android:layout_margin="5dp"
                     android:background="#FFFFFF"
-                    android:editable="false"
                     android:ems="10"
-                    android:hint="Enter your email"
+                    android:hint="Your @dlight.com mail address"
                     android:inputType="textEmailAddress"
                     android:paddingLeft="5dp"
                     android:paddingTop="5dp"
                     android:paddingRight="5dp"
 
-                    android:paddingBottom="5dp" /></android.support.design.widget.TextInputLayout>
+                    android:paddingBottom="5dp"
+                    android:text="@string/emailAddress"
+                    android:textAppearance="@android:style/TextAppearance.Material.Widget.EditText" /></android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp">
-            <EditText
-                android:id="@+id/editTextSalesRepID"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="15dp"
-                android:hint="Enter your employee ID"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp"
-                android:paddingTop="5dp"
-                android:paddingBottom="5dp"
-                android:ems="10"
-                android:background="#FFFFFF"
-                android:inputType="text" />
+                android:layout_marginTop="5dp">
+
+                <EditText
+                    android:id="@+id/editTextSalesRepID"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:background="#FFFFFF"
+                    android:ems="10"
+                    android:hint="Enter your employee ID"
+                    android:inputType="text"
+                    android:paddingLeft="5dp"
+                    android:paddingTop="5dp"
+                    android:paddingRight="5dp"
+                    android:paddingBottom="5dp"
+                    android:textAppearance="@android:style/TextAppearance.Material.Widget.EditText" />
                 /></android.support.design.widget.TextInputLayout>
 
             <Spinner
                 android:id="@+id/spinnerRegion"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="15dp"
+                android:layout_margin="5dp"
+                android:paddingTop="2dp"
+                android:paddingLeft="2dp"
+                android:paddingBottom="2dp"
+                android:paddingRight="2dp"
                 android:background="@android:drawable/btn_dropdown"
-                android:spinnerMode="dropdown"
 
-                />
+
+                android:spinnerMode="dropdown" />
 
             <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp">
+            android:layout_marginTop="5dp">
             <EditText
                 android:id="@+id/editTextDealerShopName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="15dp"
-                android:hint="Enter dealer's shop name"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp"
-                android:paddingTop="5dp"
-                android:paddingBottom="5dp"
-                android:background="#FFFFFF"
-                android:inputType="text"
-                android:ems="10"/>
-        </android.support.design.widget.TextInputLayout>
-
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp">
-            <EditText
-                android:id="@+id/editTextDealerName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="15dp"
+                android:layout_margin="5dp"
                 android:hint="Enter dealer's name"
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
@@ -117,79 +105,165 @@
                 android:paddingBottom="5dp"
                 android:background="#FFFFFF"
                 android:inputType="text"
-                android:ems="10"/>
+                android:ems="10"
+                android:textAppearance="@android:style/TextAppearance.Material.Widget.EditText"/>
+        </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp">
+            <EditText
+                android:id="@+id/editTextDealerName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:hint="Enter proprietor/owner's name"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:background="#FFFFFF"
+                android:inputType="text"
+                android:ems="10"
+                android:textAppearance="@android:style/TextAppearance.Material.Widget.EditText"/>
             </android.support.design.widget.TextInputLayout>
 
             <Spinner
                 android:id="@+id/spinnerSourceInfo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="15dp"
+                android:layout_margin="5dp"
+                android:paddingTop="2dp"
+                android:paddingLeft="2dp"
+                android:paddingBottom="2dp"
+                android:paddingRight="2dp"
+                android:background="@android:drawable/btn_dropdown"
+                android:spinnerMode="dropdown"
+                android:focusable="true"/>
+
+                        <Spinner
+                android:id="@+id/spinnerDealerType"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:paddingTop="2dp"
+                android:paddingLeft="2dp"
+                android:paddingBottom="2dp"
+                android:paddingRight="2dp"
                 android:background="@android:drawable/btn_dropdown"
                 android:spinnerMode="dropdown"/>
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp">
+                android:layout_marginTop="5dp">
+                <EditText
+                    android:id="@+id/editTextDealingInBrands"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:hint="Dealing with which brands?"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:background="#FFFFFF"
+                    android:inputType="text"
+                    android:ems="10"
+                    android:textAppearance="@android:style/TextAppearance.Material.Widget.EditText"/>
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp">
             <EditText
                 android:id="@+id/editTextContactNo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="15dp"
-                android:hint="Enter contact number"
+                android:layout_margin="5dp"
+                android:hint="Enter phone number (10 digits)"
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
                 android:ems="10"
                 android:background="#FFFFFF"
-                android:inputType="number" />
+                android:inputType="number"
+                android:textAppearance="@android:style/TextAppearance.Material.Widget.EditText"/>
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp">
+                android:layout_marginTop="5dp">
+                <EditText
+                    android:id="@+id/editTextDealerAddress1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:hint="Enter address line 1"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:background="#FFFFFF"
+                    android:ems="10"
+                    android:inputType="text"
+                    android:textAppearance="@android:style/TextAppearance.Material.Widget.EditText"/>
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp">
+                <EditText
+                    android:id="@+id/editTextDealerAddress2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:hint="Enter address line 2"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:background="#FFFFFF"
+                    android:ems="10"
+                    android:inputType="text"
+                    android:textAppearance="@android:style/TextAppearance.Material.Widget.EditText"/>
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp">
             <EditText
                 android:id="@+id/editTextCityName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="15dp"
-                android:hint="Enter city"
+                android:layout_margin="5dp"
+                android:hint="Enter dealer's city"
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
                 android:background="#FFFFFF"
                 android:ems="10"
-                android:inputType="text" />
+                android:inputType="text"
+                android:textAppearance="@android:style/TextAppearance.Material.Widget.EditText"/>
             </android.support.design.widget.TextInputLayout>
 
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp">
-            <EditText
-                android:id="@+id/editTextDistrict"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="15dp"
-                android:hint="Enter district"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp"
-                android:paddingTop="5dp"
-                android:paddingBottom="5dp"
-                android:background="#FFFFFF"
-                android:ems="10"
-                android:inputType="text" />
-            </android.support.design.widget.TextInputLayout>
 
             <Spinner
                 android:id="@+id/spinnerState"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="15dp"
+                android:layout_margin="5dp"
+                android:paddingTop="2dp"
+                android:paddingLeft="2dp"
+                android:paddingBottom="2dp"
+                android:paddingRight="2dp"
                 android:background="@android:drawable/btn_dropdown"
                 android:spinnerMode="dropdown"
                 android:prompt="@string/spinner_state"
@@ -198,55 +272,74 @@
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp">
+                android:layout_marginTop="5dp">
                 <EditText
                     android:id="@+id/editPincode"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="15dp"
-                    android:hint="Enter Pincode"
+                    android:layout_margin="5dp"
+                    android:hint="Enter dealer's pincode"
                     android:paddingLeft="5dp"
                     android:paddingRight="5dp"
                     android:paddingTop="5dp"
                     android:paddingBottom="5dp"
                     android:ems="6"
                     android:background="#FFFFFF"
-                    android:inputType="number" />
+                    android:inputType="number"
+                    android:textAppearance="@android:style/TextAppearance.Material.Widget.EditText"/>
             </android.support.design.widget.TextInputLayout>
 
             <Spinner
                 android:id="@+id/spinnerVisitLevel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="15dp"
+                android:layout_margin="5dp"
+                android:paddingTop="2dp"
+                android:paddingLeft="2dp"
+                android:paddingBottom="2dp"
+                android:paddingRight="2dp"
                 android:background="@android:drawable/btn_dropdown"
                 android:spinnerMode="dropdown"/>
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp">
-            <EditText
-                android:id="@+id/editTextDetails"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="15dp"
-                android:hint="Details of discussion"
-                android:lines="4"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp"
-                android:paddingTop="5dp"
-                android:paddingBottom="5dp"
-                android:background="#FFFFFF"
-                android:ems="10"
-                android:inputType="text" />
+                android:layout_marginTop="5dp">
+
+                <EditText
+                    android:id="@+id/editTextDetails"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:background="#FFFFFF"
+                    android:ems="10"
+                    android:hint="Details of discussion"
+                    android:inputType="textMultiLine"
+                    android:lines="4"
+                    android:paddingLeft="5dp"
+                    android:paddingTop="5dp"
+                    android:paddingRight="5dp"
+                    android:paddingBottom="5dp"
+                    android:singleLine="false"
+                    tools:singleLine="false"
+                    android:minLines="4"
+                android:gravity="top|left"
+                android:maxLines="10"
+
+                android:scrollbars="vertical"
+                    android:textAppearance="@android:style/TextAppearance.Material.Widget.EditText"
+                    />
             </android.support.design.widget.TextInputLayout>
 
             <Spinner
                 android:id="@+id/spinnerLeadStatus"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="15dp"
+                android:layout_margin="5dp"
+                android:paddingTop="2dp"
+                android:paddingLeft="2dp"
+                android:paddingBottom="2dp"
+                android:paddingRight="2dp"
                 android:background="@android:drawable/btn_dropdown"
                 android:spinnerMode="dropdown"/>
 
@@ -255,7 +348,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="15dp"
-                android:text="Save Lead" />
+                android:text="Save Lead"
+                android:textAppearance="@android:style/TextAppearance.Material.Widget.Button" />
         </LinearLayout>
     </RelativeLayout>
 </ScrollView>

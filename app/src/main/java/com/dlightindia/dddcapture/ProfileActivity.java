@@ -72,12 +72,17 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
                 Intent i=null;
                 if(position==0)
                 {
-                   i = new Intent(getApplicationContext(), AddNewLead.class);
+                  i = new Intent(getApplicationContext(), AddNewLead.class);
+
+                    //This is for web form
                    // i = new Intent(getApplicationContext(), AddNewLead_WebForm.class);
+
+
                 }
                 if (position==1)
                 {
-                    i = new Intent(getApplicationContext(), UpdateLead.class);
+                  //  i = new Intent(getApplicationContext(), UpdateLead.class);
+                    i = new Intent(getApplicationContext(),SearchLeadActivity.class);
                 }
                 if (position==2)
                 {

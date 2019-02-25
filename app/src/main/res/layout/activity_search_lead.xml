@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scrollbars = "vertical"
+    android:fillViewport="true"
+    android:scrollbarStyle="insideInset">
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        tools:context=".SearchLeadActivity">
+
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true">
+
+
+            <TextView
+                android:id="@+id/textViewSearchLead"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:paddingTop="20dp"
+                android:text="@string/searchLeadTitle"
+
+                android:textAppearance="@android:style/TextAppearance.Material.Widget.Toolbar.Title" />
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp">
+
+                <EditText
+                    android:id="@+id/editTextSearchLead"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="15dp"
+                    android:hint="Enter lead ID"
+                    android:singleLine="true"
+                    android:textAppearance="@android:style/TextAppearance.Material.Widget.EditText" />
+            </android.support.design.widget.TextInputLayout>
+
+
+            <Button
+                android:id="@+id/searchLead"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="15dp"
+                android:text="Search Lead"
+                android:textAppearance="@android:style/TextAppearance.Material.Widget.Button" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@android:color/darker_gray"/>
+
+            <TextView
+                android:id="@+id/textViewLeadSearchResult"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal"
+                android:paddingTop="10dp"
+
+                android:textAlignment="center"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="14sp" />
+
+            <Spinner
+                android:id="@+id/spinnerLeadStatusUpdate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                android:background="@android:drawable/btn_dropdown"
+                android:spinnerMode="dropdown"/>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp">
+
+                <EditText
+                    android:id="@+id/editTextCommentsUpdate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15dp"
+                    android:background="#FFFFFF"
+                    android:ems="10"
+                    android:hint="Details of discussion"
+                    android:inputType="textMultiLine"
+                    android:lines="4"
+                    android:paddingLeft="5dp"
+                    android:paddingTop="5dp"
+                    android:paddingRight="5dp"
+                    android:paddingBottom="5dp"
+                    android:singleLine="false"
+                    tools:singleLine="false"
+                    android:minLines="4"
+                    android:gravity="top|left"
+                    android:maxLines="10"
+
+                    android:scrollbars="vertical" />
+            </android.support.design.widget.TextInputLayout>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Update Lead"
+                android:layout_margin="15dp"
+                android:id="@+id/buttonUpdateLead"
+                android:layout_gravity="center_horizontal" />
+        </LinearLayout>
+    </RelativeLayout>
+</ScrollView>
+

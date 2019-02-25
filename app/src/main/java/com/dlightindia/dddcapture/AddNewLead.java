@@ -31,9 +31,12 @@ public class AddNewLead extends AppCompatActivity implements View.OnClickListene
    private EditText dealerShopName;
    private EditText dealerName;
    private Spinner infoSource;
+   private Spinner dealerType;
+   private EditText dealingBrands;
    private EditText dealerPhoneNo;
    private EditText dealerCity;
-   private EditText dealerDistrict;
+   private EditText dealerAddress1;
+   private EditText dealerAddress2;
    private Spinner visitLevel;
    private EditText detailsDiscussion;
    private Spinner dealerState;
@@ -44,24 +47,34 @@ public class AddNewLead extends AppCompatActivity implements View.OnClickListene
    private ProgressDialog progressDialog;
    private AlertDialog.Builder alertDialogBuilder;
    private AlertDialog alertDialog;
+    private static final String REST_URL = "https://5025835.restlets.api.netsuite.com/app/site/hosting/restlet.nl?script=181&deploy=1";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_new_lead);
 
+        //Title of the form
         textView  = (TextView) findViewById(R.id.textViewAddLead);
+
+        //Employee email
         salesRepEmail  = (EditText) findViewById(R.id.editTextSalesRepEmail);
+
+        //Employee ID
         salesRepID = (EditText) findViewById(R.id.editTextSalesRepID);
 
         buttonSaveLead = (Button) findViewById(R.id.buttonSaveLead);
         buttonSaveLead.setOnClickListener(AddNewLead.this);
 
+
+        //Region
         salesRepRegion = (Spinner) findViewById(R.id.spinnerRegion);
         String[] regions = {"Select Region","North","East","West & South"};
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item,regions);
         salesRepRegion.setAdapter(adapter);
 
+
+        //State
         dealerState = (Spinner) findViewById(R.id.spinnerState);
         String[] states_of_india = {"Select State","Andra Pradesh","Arunachal Pradesh","Assam","Bihar","Chattisgarh","Goa","Gujarat","Haryana",
                 "Himachal Pradesh", "Jammu and Kashmir","Jharkhand","Karnataka","Kerala","Madhya Pradesh","Maharashtra","Manipur","Meghalaya",
@@ -70,29 +83,56 @@ public class AddNewLead extends AppCompatActivity implements View.OnClickListene
         ArrayAdapter<String> adapterState = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item,states_of_india);
         dealerState.setAdapter(adapterState);
 
-
+        //Shop name
         dealerShopName = (EditText) findViewById(R.id.editTextDealerShopName);
+
+        //Owner name
         dealerName = (EditText) findViewById(R.id.editTextDealerName);
 
+
+        //Info source
         infoSource = (Spinner) findViewById(R.id.spinnerSourceInfo);
-        String[] source_of_information = {"Select Information Source","Individual Visit","Newspaper Ad","Branding","Others"};
+        String[] source_of_information = {"Select Information Source","Branding","Existing Retailer","Individual Visit","Newspaper Ad","Others", "Partners Referral"};
         ArrayAdapter<String> adapterInfoSource = new ArrayAdapter<>(this,android.R.layout.simple_spinner_dropdown_item,source_of_information);
         infoSource.setAdapter(adapterInfoSource);
 
+        //Dealer Type
+        dealerType = (Spinner) findViewById(R.id.spinnerDealerType);
+        String[] dealer_type = {"Select Dealer Type","Solar Electricals","Solar Electronics","Solar Inverter","Others"};
+        ArrayAdapter<String> adapterDealerType = new ArrayAdapter<>(this,android.R.layout.simple_spinner_dropdown_item,dealer_type);
+        dealerType.setAdapter(adapterDealerType);
+
+        //dealing with which brands
+        dealingBrands = (EditText) findViewById(R.id.editTextDealingInBrands);
+
+        //Phone number
         dealerPhoneNo = (EditText) findViewById(R.id.editTextContactNo);
+
+        //Address
+        dealerAddress1 = (EditText) findViewById(R.id.editTextDealerAddress1);
+        dealerAddress2 = (EditText) findViewById(R.id.editTextDealerAddress2);
+
+        //City
         dealerCity = (EditText) findViewById(R.id.editTextCityName);
-        dealerDistrict = (EditText) findViewById(R.id.editTextDistrict);
+
+
+      //Pincode
         dealerPincode = (EditText) findViewById(R.id.editPincode);
 
+        //Visit level
         visitLevel = (Spinner) findViewById(R.id.spinnerVisitLevel);
         String[] visit_levels={"Select Visit Level","First","Second","Third"};
         ArrayAdapter<String> adapterVisitLevels = new ArrayAdapter<>(this,android.R.layout.simple_spinner_dropdown_item,visit_levels);
         visitLevel.setAdapter(adapterVisitLevels);
+        visitLevel.setSelection(1);
+        visitLevel.setEnabled(false);
 
+        //Discussion details
         detailsDiscussion = (EditText) findViewById(R.id.editTextDetails);
 
+        //lead status
         leadStatus = (Spinner) findViewById(R.id.spinnerLeadStatus);
-        String[] lead_status={"Select Lead Status","Cold","Hot","Converted","Declined"};
+        String[] lead_status={"Select Lead Status","Warm","Hot","Successfully Closed","Declined"};
         ArrayAdapter<String> adapterLeadStatus = new ArrayAdapter<>(this,android.R.layout.simple_spinner_dropdown_item,lead_status);
         leadStatus.setAdapter(adapterLeadStatus);
 
@@ -113,6 +153,7 @@ public class AddNewLead extends AppCompatActivity implements View.OnClickListene
         //getting current user
         FirebaseUser user = firebaseAuth.getCurrentUser();
         salesRepEmail.setText(user.getEmail());
+        salesRepEmail.setEnabled(false);
 
 
         progressDialog = new ProgressDialog(this);
@@ -136,20 +177,24 @@ public class AddNewLead extends AppCompatActivity implements View.OnClickListene
             }
             else if(salesRepRegion.getSelectedItem().toString().trim().toUpperCase() == "SELECT REGION" )
             {
-                Toast.makeText(this,"Please select region"+salesRepRegion.getSelectedItem().toString().trim(),Toast.LENGTH_LONG).show();
+                Toast.makeText(this,"Please select employee region"+salesRepRegion.getSelectedItem().toString().trim(),Toast.LENGTH_LONG).show();
             }
             else if (TextUtils.isEmpty(dealerShopName.getText().toString().trim()))
             {
-                Toast.makeText(this,"Please enter dealer's shop name",Toast.LENGTH_LONG).show();
+                Toast.makeText(this,"Please enter dealer's name",Toast.LENGTH_LONG).show();
             }
 
             else if (TextUtils.isEmpty(dealerName.getText().toString().trim()))
             {
-                Toast.makeText(this,"Please enter dealer's name",Toast.LENGTH_LONG).show();
+                Toast.makeText(this,"Please enter proprietor/owner's name",Toast.LENGTH_LONG).show();
             }
             else if (infoSource.getSelectedItem().toString().trim()=="Select Information Source")
             {
                 Toast.makeText(this,"Please select information source",Toast.LENGTH_LONG).show();
+            }
+            else if (dealerType.getSelectedItem().toString().trim()=="Select Dealer Type")
+            {
+                Toast.makeText(this,"Please select dealer type",Toast.LENGTH_LONG).show();
             }
             else if (TextUtils.isEmpty(dealerPhoneNo.getText().toString().trim()) || TextUtils.getTrimmedLength(dealerPhoneNo.getText().toString())<10)
 
@@ -161,9 +206,13 @@ public class AddNewLead extends AppCompatActivity implements View.OnClickListene
             {
                 Toast.makeText(this,"Please enter dealer's city",Toast.LENGTH_LONG).show();
             }
-            else if (TextUtils.isEmpty(dealerDistrict.getText().toString().trim()))
+            else if (TextUtils.isEmpty(dealerAddress1.getText().toString().trim()))
             {
-                Toast.makeText(this,"Please enter district",Toast.LENGTH_LONG).show();
+                Toast.makeText(this,"Please enter dealer's address 1",Toast.LENGTH_LONG).show();
+            }
+            else if (TextUtils.isEmpty(dealerAddress2.getText().toString().trim()))
+            {
+                Toast.makeText(this,"Please enter dealer's address 2",Toast.LENGTH_LONG).show();
             }
 
             else if (dealerState.getSelectedItem().toString().trim()=="Select State")
@@ -219,20 +268,25 @@ public class AddNewLead extends AppCompatActivity implements View.OnClickListene
         String str_dealerShopName = dealerShopName.getText().toString().trim();
         String str_dealerName = dealerName.getText().toString().trim();
         String str_infosource = infoSource.getSelectedItem().toString();
-        String str_infosourceID="5";
+        String str_infosourceID="-3";
         if (str_infosource=="Branding")
-            str_infosourceID="4";
+            str_infosourceID="-5";
         if (str_infosource=="Individual Visit")
-            str_infosourceID="2";
+            str_infosourceID="-6";
         if (str_infosource=="Newspaper Ad")
-            str_infosourceID="3";
+            str_infosourceID="-2";
         if (str_infosource=="Others")
-            str_infosourceID="5";
+            str_infosourceID="-3";
+        if (str_infosource=="Existing Retailer")
+            str_infosourceID="52150";
+        if (str_infosource=="Partner Referral")
+            str_infosourceID="-4";
 
-
+        String str_dealerDealingBrands = dealingBrands.getText().toString().trim();
         String str_dealerPhone = dealerPhoneNo.getText().toString().trim();
+        String str_address1 = dealerAddress1.getText().toString().trim();
+        String str_address2 = dealerAddress2.getText().toString().trim();
         String str_dealerCity = dealerCity.getText().toString().trim();
-        String str_dealerDistrict = dealerDistrict.getText().toString().trim();
         String str_dealerState = dealerState.getSelectedItem().toString();
         String str_visitLevel = visitLevel.getSelectedItem().toString();
         String str_visitLevelID="1";
@@ -243,6 +297,18 @@ public class AddNewLead extends AppCompatActivity implements View.OnClickListene
         if (str_visitLevel=="Third")
             str_visitLevelID="3";
 
+        String str_dealerTypeID="7";
+        String str_dealerType = dealerType.getSelectedItem().toString();
+        if (str_dealerType=="Solar Inverter")
+            str_dealerTypeID="1";
+        if (str_dealerType=="Solar Electronics")
+            str_dealerTypeID="4";
+        if (str_dealerType=="Solar Electricals")
+            str_dealerTypeID="2";
+        if (str_dealerType=="Others")
+            str_dealerTypeID="7";
+
+
 
 
         String str_detailsDiscussion = detailsDiscussion.getText().toString().trim();
@@ -250,12 +316,13 @@ public class AddNewLead extends AppCompatActivity implements View.OnClickListene
         String str_leadStatusID="2";
         if (str_LeadStatus=="Hot")
             str_leadStatusID="1";
-        if (str_LeadStatus=="Cold")
+        if (str_LeadStatus=="Warm")
             str_leadStatusID="2";
         if (str_LeadStatus=="Successfully Closed")
             str_leadStatusID="3";
         if (str_LeadStatus=="Declined")
             str_leadStatusID="4";
+
 
 
 
@@ -267,16 +334,38 @@ public class AddNewLead extends AppCompatActivity implements View.OnClickListene
                 str_dealerCity+"\",\r\n \t\t\"country\": \"India\",\r\n \t\t\"state\": \""+str_dealerState+"\",\r\n \t\t\"zip\": \""+
                 str_dealerPincode+"\",\r\n \t}]\r\n }\r\n";*/
 
-        final String payLoad = "{\r\n\t\"operation\": \"create\",\r\n \t\"recordtype\": \"lead\",\r\n \t\"companyname\": \""+str_dealerShopName+
+        /*final String payLoad = "{\r\n\t\"operation\": \"create\",\r\n \t\"recordtype\": \"lead\",\r\n \t\"companyname\": \""+str_dealerShopName+
         "\",\r\n \t\"custentity_sales_rep_id\" : \""+str_salesRepID+"\",\r\n \t\"custentity_sales_rep_region\" : "+str_salesRepRegionID+
                 ",\r\n \t\"custentity_owner_name\" : \""+str_dealerName+"\",\r\n \t\"campaigncategory\" : "+str_infosourceID+
                 ",\r\n \t\"leadstatus\":"+str_leadStatusID+",\r\n \t\r\n   \t\"phone\": \""+str_dealerPhone+
                 "\",\r\n   \t\"custentity3\" :"+str_visitLevelID+",\r\n   \t\"custentitycustentity_created_from\":1,\r\n \t\"comments\":\""+
                 str_detailsDiscussion+"\",\r\n \t\"note\":\""+str_detailsDiscussion+"\",\r\n \t\"notetype\":9,\r\n \t\"shippingaddress\": [{\r\n \t\t\"city\": \""+
                 str_dealerCity+"\",\r\n \t\t\"country\": \"India\",\r\n \t\t\"state\": \""+str_dealerState+"\",\r\n \t\t\"zip\": \""+str_dealerPincode+
-                "\",\r\n \t}]\r\n }\r\n";
+                "\",\r\n \t}]\r\n }\r\n";*/
 
+        final String payLoad1 = "{\r\n\t\"operation\": \"create\",\r\n\t\"recordtype\": \"lead\",\r\n\t\"companyname\": \""+
+                str_dealerShopName+"\",\r\n\t\"custentity_sales_rep_id\": \""+str_salesRepID+"\",\r\n\t\"custentity_sales_rep_region\": "+
+                str_salesRepRegion+",\r\n\t\"custentity_owner_name\": \""+str_dealerName+"\",\r\n\t\"leadsource\": "+str_infosourceID+
+                ",\r\n\t\"custentity_lead_status_dealer\": "+str_leadStatusID+",\r\n\t\"custentity_dealer_type\":"+str_dealerTypeID+
+                ",\r\n\t\"custentity_current_dealer_brands\":\""+str_dealerDealingBrands+"\",\r\n\t\"custentitylead_created_by\":\""+
+                str_salesRepEmail+"\",\r\n\t\"phone\": \""+str_dealerPhone+"\",\r\n\t\"custentity3\": "+str_visitLevelID+
+                ",\r\n\t\"custentitycustentity_created_from\": 1,\r\n\t\"comments\": \""+str_detailsDiscussion+
+                "\",\r\n\t\"note\": \""+str_detailsDiscussion+"\",\r\n\t\"notetype\": 9,\r\n\t\"shippingaddress\": [{\r\n\t\t\"addr1\":\""+
+                str_address1+"\",\r\n\t\t\"addr2\":\""+str_address2+"\",\r\n\t\t\"city\": \""+str_dealerCity+
+                "\",\r\n\t\t\"country\": \"India\",\r\n\t\t\"state\": \""+str_dealerState+"\",\r\n\t\t\"zip\": \""+
+                str_dealerPincode+"\",\r\n\t}]\r\n}";
 
+        final String payLoad = "{\r\n\t\"operation\": \"create\",\r\n\t\"recordtype\": \"lead\",\r\n\t\"companyname\": \""+
+                str_dealerShopName+"\",\r\n\t\"custentity_sales_rep_id\": \""+str_salesRepID+"\",\r\n\t\"custentity_sales_rep_region\": "+
+                str_salesRepRegionID+",\r\n\t\"custentity_owner_name\": \""+str_dealerName+"\",\r\n\t\"leadsource\": "+str_infosourceID+
+                ",\r\n\t\"custentity_lead_status_dealer\": "+str_leadStatusID+",\r\n\t\"custentity_dealer_type\":"+str_dealerTypeID+
+                ",\r\n\t\"custentity_current_dealer_brands\":\""+str_dealerDealingBrands+"\",\r\n\t\"custentitylead_created_by\":\""+
+                str_salesRepEmail+"\",\r\n\t\"phone\": \""+str_dealerPhone+"\",\r\n\t\"custentity3\": "+str_visitLevelID+
+                ",\r\n\t\"custentitycustentity_created_from\": 1,\r\n\t\"comments\": \""+str_detailsDiscussion+
+                "\",\r\n\t\"note\": \""+str_detailsDiscussion+"\",\r\n\t\"notetype\": 9,\r\n\t\"dropdownstate\":\""+str_dealerState+
+                "\",\r\n\t\"shippingaddress\": [{\r\n\t\t\"addr1\":\""+str_address1+"\",\r\n\t\t\"addr2\":\""+str_address2+
+                "\",\r\n\t\t\"city\": \""+str_dealerCity+"\",\r\n\t\t\"country\": \"India\",\r\n\t\t\"state\": \""+str_dealerState+
+                "\",\r\n\t\t\r\n\t\t\"zip\": \""+str_dealerPincode+"\",\r\n\t}]\r\n}";
 
 
 
@@ -288,7 +377,7 @@ public class AddNewLead extends AppCompatActivity implements View.OnClickListene
             public void run() {
                 try  {
                     //Your code goes here
-                    Response response = callNetSuiteAPI.main(payLoad);
+                    Response response = callNetSuiteAPI.main(payLoad,REST_URL);
                     try {
                         JSONObject responseJSONObbject = new JSONObject(response.getBody());
                         if (responseJSONObbject != null) {
@@ -308,7 +397,7 @@ public class AddNewLead extends AppCompatActivity implements View.OnClickListene
 
 
                                                alertDialogBuilder.setTitle("Lead Saved");
-                                               alertDialogBuilder.setMessage("Your lead has been saved successfully with ID "+JSON_recordid);
+                                               alertDialogBuilder.setMessage("Your lead has been saved successfully with \nID - "+JSON_recordid+".");
                                                //alertDialog.setIcon(R.drawable.logo);
                                                alertDialogBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                                    @Override
