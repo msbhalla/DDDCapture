@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:scrollbars = "vertical"
@@ -32,7 +33,7 @@
                 android:paddingTop="20dp"
                 android:text="@string/searchLeadTitle"
 
-                android:textAppearance="@android:style/TextAppearance.Material.Widget.Toolbar.Title" />
+                android:textAppearance="@android:style/TextAppearance.Material.Title" />
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
@@ -70,16 +71,48 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="center_horizontal"
                 android:paddingTop="10dp"
+                android:paddingLeft="30dp"
 
-                android:textAlignment="center"
+                android:gravity="left"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:autoLink="phone"
+                android:paddingLeft="30dp"
+                android:id="@+id/textViewPhone"
+                android:textColor="@color/colorPrimaryDark"
+                />
+
+            <TextView
+                android:id="@+id/textViewLocation"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:autoLink="phone"
+                android:paddingLeft="30dp"
+                android:textColor="@color/colorAccent"
+                android:textColorLink="@color/colorAccent" />
+
+
+             <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingTop="13dp"
+                android:paddingLeft="25dp"
+                android:id="@+id/textViewInstructionsUpdate"
+                android:textColor="@color/common_google_signin_btn_text_dark_focused"/>
 
             <Spinner
                 android:id="@+id/spinnerLeadStatusUpdate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="15dp"
+                android:paddingTop="2dp"
+                android:paddingLeft="2dp"
+                android:paddingBottom="2dp"
+                android:paddingRight="2dp"
                 android:background="@android:drawable/btn_dropdown"
                 android:spinnerMode="dropdown"/>
 
@@ -107,7 +140,7 @@
                     android:minLines="4"
                     android:gravity="top|left"
                     android:maxLines="10"
-
+                    android:textAppearance="@android:style/TextAppearance.Material.Widget.EditText"
                     android:scrollbars="vertical" />
             </android.support.design.widget.TextInputLayout>
 
@@ -117,7 +150,8 @@
                 android:text="Update Lead"
                 android:layout_margin="15dp"
                 android:id="@+id/buttonUpdateLead"
-                android:layout_gravity="center_horizontal" />
+                android:layout_gravity="center_horizontal"
+                android:textAppearance="@android:style/TextAppearance.Material.Widget.Button"/>
         </LinearLayout>
     </RelativeLayout>
 </ScrollView>

@@ -1,6 +1,8 @@
 package com.dlightindia.dddcapture;
 
 import android.content.RestrictionEntry;
+import android.graphics.Paint;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.app.ProgressDialog;
@@ -34,6 +36,8 @@ public class SearchLeadActivity extends AppCompatActivity implements View.OnClic
     private Button buttonSearchLead;
     private EditText editTextSearchLeadID;
     private TextView textViewSearchLeadIDResults;
+    private TextView textViewUpdateInstructions;
+    private TextView textViewPhone;
     private ProgressDialog progressDialog;
     private static final String REST_UPDATE_URL = "https://5025835.restlets.api.netsuite.com/app/site/hosting/restlet.nl?script=183&deploy=1";
     private static final String REST_URL = "https://5025835.restlets.api.netsuite.com/app/site/hosting/restlet.nl?script=182&deploy=1";
@@ -48,6 +52,11 @@ public class SearchLeadActivity extends AppCompatActivity implements View.OnClic
     private String str_ownername=null;
     private String str_visitLevel=null;
     private String str_leadStatus=null;
+    private String str_billingAddress=null;
+    private String str_phone=null;
+    private String str_lattitude=null;
+    private String str_longitude=null;
+    private TextView textViewLocation;
 
     @Override
     public boolean isVoiceInteraction() {
@@ -60,6 +69,13 @@ public class SearchLeadActivity extends AppCompatActivity implements View.OnClic
         setContentView(R.layout.activity_search_lead);
 
         textViewSearchLeadIDResults  = (TextView) findViewById(R.id.textViewLeadSearchResult);
+        textViewPhone = (TextView) findViewById(R.id.textViewPhone);
+       textViewLocation = (TextView) findViewById(R.id.textViewLocation);
+       textViewLocation.setOnClickListener(SearchLeadActivity.this);
+        textViewLocation.setPaintFlags(textViewLocation.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+
+        textViewUpdateInstructions = (TextView) findViewById(R.id.textViewInstructionsUpdate);
+
         editTextSearchLeadID  = (EditText) findViewById(R.id.editTextSearchLead);
         buttonSearchLead = (Button) findViewById(R.id.searchLead);
         buttonSearchLead.setOnClickListener(SearchLeadActivity.this);
@@ -111,6 +127,21 @@ public class SearchLeadActivity extends AppCompatActivity implements View.OnClic
                 updateLead();
             }
         }
+
+        if (view == textViewLocation)
+        {
+            double lat= Double.valueOf(str_lattitude);
+            double lon = Double.valueOf(str_longitude);
+            String label = "";
+            String uriBegin = "geo:" + lat + "," + lon;
+            String query = lat + "," + lon + "(" + label + ")";
+            String encodedQuery = Uri.encode(query);
+            String uriString = uriBegin + "?q=" + encodedQuery + "&z=16";
+            Uri uri = Uri.parse(uriString);
+            Intent intent = new Intent(android.content.Intent.ACTION_VIEW, uri);
+            startActivity(intent);
+        }
+
     }
 
     public void searchLead()
@@ -120,7 +151,7 @@ public class SearchLeadActivity extends AppCompatActivity implements View.OnClic
 
         String str_searchLeadID = editTextSearchLeadID.getText().toString().trim();
 
-        final String payLoad = "{\r\n\t\"operation\": \"search\",\r\n\t\"recordtype\": \"lead\",\r\n\r\n\t\"filters\": [{\r\n \t\t\"entityid\": \""+str_searchLeadID+"\",\r\n \t\t}],\r\n \t\"columns\": [{\r\n\t\t\r\n\t\t\"entityid\": \"entityid\",\r\n\t\t\"companyname\":\"companyname\",\r\n\t\t\"custentity_owner_name\":\"custentity_owner_name\",\r\n\t\t\"custentity_lead_status_dealer\":\"custentity_lead_status_dealer\",\r\n\t\t\"custentity3\":\"custentity3\"\r\n\t\t\r\n\t}]\r\n\r\n}";
+        final String payLoad = "{\r\n\t\"operation\": \"search\",\r\n\t\"recordtype\": \"lead\",\r\n\r\n\t\"filters\": [{\r\n \t\t\"entityid\": \""+str_searchLeadID+"\",\r\n \t\t}],\r\n \t\"columns\": [{\r\n\t\t\r\n\t\t\"entityid\": \"entityid\",\r\n\t\t\"companyname\":\"companyname\",\r\n\t\t\"custentity_owner_name\":\"custentity_owner_name\",\r\n\t\t\"custentity3\":\"custentity3\",\r\n\t\t\"custentity_lead_status_dealer\":\"custentity_lead_status_dealer\",\r\n\t\t\"custentitycustentity_created_from\":\"custentitycustentity_created_from\",\r\n\t\t\"custentity_dealer_type\":\"custentity_dealer_type\",\r\n\t\t\"billaddress\":\"billaddress\",\r\n\t\t\"phone\":\"phone\",\r\n\t\t\"custentitycust_lattitude\":\"custentitycust_lattitude\",\r\n\t\t\"custentitycust_longitude\":\"custentitycust_longitude\",\r\n\t\t\r\n\t\t\r\n\t}]\r\n\r\n}";
 
         final CallNetSuiteAPI callNetSuiteAPI = new CallNetSuiteAPI();
 
@@ -213,15 +244,24 @@ public class SearchLeadActivity extends AppCompatActivity implements View.OnClic
 
                     str_leadid = cObj.getString("entityid");
                     str_companyname = cObj.getString("companyname");
-
+                    if (cObj.has("custentitycust_lattitude"))
+                    {
+                        str_lattitude = cObj.getString("custentitycust_lattitude");
+                    }
+                    if (cObj.has("custentitycust_longitude"))
+                    {
+                        str_longitude = cObj.getString("custentitycust_longitude");
+                    }
                     str_ownername = cObj.getString("custentity_owner_name");
+                    str_billingAddress = cObj.getString("billaddress");
+                    str_phone = cObj.getString("phone");
                     JSONObject leadStatusObject = cObj.getJSONObject("custentity_lead_status_dealer");
                     str_leadStatus = leadStatusObject.getString("name");
-                    int visitLevelsDone=0;
+                    int visitLevelsDone = 0;
                     if (cObj.has("custentity3")) {
                         JSONObject visitLevelObject = cObj.getJSONObject("custentity3");
                         str_visitLevel = visitLevelObject.getString("name");
-                        Log.d("Sparsh App","Visit Levels -"+str_visitLevel);
+                        Log.d("Sparsh App", "Visit Levels -" + str_visitLevel);
 
                         if (str_visitLevel.toLowerCase().equals("first"))
                             visitLevelsDone = 1;
@@ -231,25 +271,37 @@ public class SearchLeadActivity extends AppCompatActivity implements View.OnClic
                             visitLevelsDone = 3;
                     }
 
-                    String resultString ="";
+                    String resultString = "";
 
-                    resultString = "Below are the details:\n\nLead ID : "+ str_leadid+
-                            "\nDealer Name : " + str_companyname+
-                            "\nOwner Name : " + str_ownername ;
+                    resultString = "Below are the details:\n\nLead ID : " + str_leadid +
+                            "\nDealer Name : " + str_companyname +
+                            "\nOwner Name : " + str_ownername +
+                            "\nVisits so far : " + visitLevelsDone +
 
+                            "\nAddress :" + str_billingAddress;
 
-                        resultString = resultString + "\nVisits so far : " + visitLevelsDone;
-                                       textViewSearchLeadIDResults.setText(resultString);
-                    spinnerLeadStatusUpdate.setSelection(((ArrayAdapter)spinnerLeadStatusUpdate.getAdapter()).getPosition(str_leadStatus));
-                    buttonUpdateLead.setVisibility(View.VISIBLE);
-                    editTextUpdateComments.setVisibility(View.VISIBLE);
-                    spinnerLeadStatusUpdate.setVisibility(View.VISIBLE);
-                    spinnerLeadStatusUpdate.requestFocus();
-                    spinnerLeadStatusUpdate.setPrompt("Lead Status");
+                    textViewPhone.setText("Phone : " + str_phone);
 
+                    if ((str_lattitude!=null) && (str_longitude!=null))
+                        textViewLocation.setText("Click here to see location in Map");
+                    textViewSearchLeadIDResults.setText(resultString);
+
+                    spinnerLeadStatusUpdate.setSelection(((ArrayAdapter) spinnerLeadStatusUpdate.getAdapter()).getPosition(str_leadStatus));
+
+                    if (spinnerLeadStatusUpdate.getSelectedItem().toString().equals("Successfully Closed")) {
+                        textViewUpdateInstructions.setText("Lead has already been converted. This can't be updated.");
+                    } else {
+                        buttonUpdateLead.setVisibility(View.VISIBLE);
+                        editTextUpdateComments.setVisibility(View.VISIBLE);
+                        spinnerLeadStatusUpdate.setVisibility(View.VISIBLE);
+                        spinnerLeadStatusUpdate.requestFocus();
+                        spinnerLeadStatusUpdate.setPrompt("Lead Status");
+                        textViewUpdateInstructions.setText("Please update lead status and provide discussion note below:");
+                    }
+                }
 
                 }
-            }
+
         }
         catch(Exception e)
         {

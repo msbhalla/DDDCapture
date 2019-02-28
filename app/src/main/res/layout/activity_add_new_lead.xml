@@ -343,6 +343,8 @@
                 android:background="@android:drawable/btn_dropdown"
                 android:spinnerMode="dropdown"/>
 
+
+
             <Button
                 android:id="@+id/buttonSaveLead"
                 android:layout_width="match_parent"
@@ -350,6 +352,14 @@
                 android:layout_margin="15dp"
                 android:text="Save Lead"
                 android:textAppearance="@android:style/TextAppearance.Material.Widget.Button" />
+
+            <TextView
+                android:id="@+id/textViewLocation"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:textAlignment="center"
+                android:textSize="10sp" />
         </LinearLayout>
     </RelativeLayout>
 </ScrollView>

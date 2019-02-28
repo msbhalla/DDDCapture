@@ -27,11 +27,12 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
+
             android:text="Large Text"
             android:id="@+id/textViewUserEmail"
             android:paddingTop="20dp"
-            android:layout_gravity="center_horizontal" />
+            android:layout_gravity="center_horizontal"
+            android:textAppearance="@android:style/TextAppearance.Material.Title"/>
 
         <GridView xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/grid_view"

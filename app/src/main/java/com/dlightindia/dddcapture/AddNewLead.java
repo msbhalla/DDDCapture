@@ -1,8 +1,18 @@
 package com.dlightindia.dddcapture;
 
+import android.Manifest;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
+import android.provider.Settings;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -15,6 +25,13 @@ import android.widget.TextView;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
+
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
+
+import android.content.Context;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.github.scribejava.core.model.Response;
@@ -22,8 +39,13 @@ import android.app.AlertDialog;
 
 import org.json.JSONObject;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
-public class AddNewLead extends AppCompatActivity implements View.OnClickListener {
+
+public class AddNewLead extends AppCompatActivity implements View.OnClickListener, LocationListener {
    private TextView textView;
    private EditText salesRepEmail;
    private EditText salesRepID;
@@ -43,17 +65,44 @@ public class AddNewLead extends AppCompatActivity implements View.OnClickListene
    private EditText dealerPincode;
    private Spinner leadStatus;
    private FirebaseAuth firebaseAuth;
+   private TextView textViewLocation;
    private Button buttonSaveLead;
    private ProgressDialog progressDialog;
    private AlertDialog.Builder alertDialogBuilder;
    private AlertDialog alertDialog;
+    private LocationManager locationManager=null;
+    private LocationListener locationListener=null;
     private static final String REST_URL = "https://5025835.restlets.api.netsuite.com/app/site/hosting/restlet.nl?script=181&deploy=1";
+    //location
+    private String mLastUpdateTime;
+    private static final long UPDATE_INTERVAL_IN_MILLISECONDS = 10000;
+    private static final long FASTEST_UPDATE_INTERVAL_IN_MILLISECONDS = 2000;
+    private static final int REQUEST_CHECK_SETTINGS = 100;
+    String lattitude,longitude;
+
+
+
+    // boolean flag to toggle the ui
+    private Boolean mRequestingLocationUpdates;
+
+   // protected LocationManager locationManager;
+    //protected LocationListener locationListener;
+    protected Context context;
+    TextView txtLat;
+    String lat;
+    String provider;
+    //protected String latitude,longitude;
+    protected boolean gps_enabled,network_enabled;
+    private static final int REQUEST_LOCATION = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_new_lead);
 
+       // ButterKnife.bind(this);
+
+        textViewLocation = (TextView) findViewById(R.id.textViewLocation);
         //Title of the form
         textView  = (TextView) findViewById(R.id.textViewAddLead);
 
@@ -157,8 +206,211 @@ public class AddNewLead extends AppCompatActivity implements View.OnClickListene
 
 
         progressDialog = new ProgressDialog(this);
+        ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
+
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+            buildAlertMessageNoGps();
+
+        } else if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+            getLocation();
+        }
+        //startLocationUpdates();
+
+
+
 
     }
+
+
+
+    public boolean checkLocationPermission()
+    {
+        if (ContextCompat.checkSelfPermission(this,Manifest.permission.ACCESS_FINE_LOCATION)!=PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION)) {
+                new AlertDialog.Builder(this)
+                        .setTitle("Permission needed to access location")
+                        .setMessage("This app needs permission to access your GPS location")
+                        .setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                ActivityCompat.requestPermissions(AddNewLead.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 99);
+                            }
+                        })
+                        .create()
+                        .show();
+            } else {
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                        99);
+            }
+            return false;
+
+        }
+        else
+        {
+            return true;
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case 99: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    // permission was granted, yay! Do the
+                    // location-related task you need to do.
+                    if (ContextCompat.checkSelfPermission(this,
+                            Manifest.permission.ACCESS_FINE_LOCATION)
+                            == PackageManager.PERMISSION_GRANTED) {
+
+                        //Request location updates:
+                        locationManager.requestLocationUpdates(provider, 400, 1, this);
+                    }
+
+                } else {
+
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+
+                }
+                return;
+            }
+
+        }
+    }
+
+void getLocation()
+    {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission
+                (this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
+
+        } else {
+            Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+
+            Location location1 = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+
+            Location location2 = locationManager.getLastKnownLocation(LocationManager. PASSIVE_PROVIDER);
+
+            if (location != null) {
+                double latti = location.getLatitude();
+                double longi = location.getLongitude();
+                lattitude = String.valueOf(latti);
+                longitude = String.valueOf(longi);
+
+                textViewLocation.setText("Your current location is"+ "\n" + "Lattitude = " + lattitude
+                        + "\n" + "Longitude = " + longitude + "\nLocation Name : "+getLocationName(latti,longi));
+
+            } else  if (location1 != null) {
+                double latti = location1.getLatitude();
+                double longi = location1.getLongitude();
+                lattitude = String.valueOf(latti);
+                longitude = String.valueOf(longi);
+
+                textViewLocation.setText("Your current location is"+ "\n" + "Lattitude = " + lattitude
+                        + "\n" + "Longitude = " + longitude+ "\nLocation Name : "+getLocationName(latti,longi));
+
+
+            } else  if (location2 != null) {
+                double latti = location2.getLatitude();
+                double longi = location2.getLongitude();
+                lattitude = String.valueOf(latti);
+                longitude = String.valueOf(longi);
+
+                textViewLocation.setText("Your current location is"+ "\n" + "Lattitude = " + lattitude
+                        + "\n" + "Longitude = " + longitude + "\nLocation Name : "+getLocationName(latti,longi));
+
+            }else{
+
+                Toast.makeText(this,"Unable to trace your location",Toast.LENGTH_SHORT).show();
+
+            }
+        }
+    }
+
+    protected String getLocationName(double latti, double longi)
+    {
+        /*
+        Geocoder geoCoder = new Geocoder(this, Locale.getDefault());
+        String fnialAddress="";//it is Geocoder
+        StringBuilder builder = new StringBuilder();
+        try {
+
+            List<Address> address = geoCoder.getFromLocation(latti, longi, 1);
+            int maxLines = address.get(0).getMaxAddressLineIndex();
+            for (int i=0; i<maxLines; i++) {
+                String addressStr = address.get(0).getAddressLine(i);
+                builder.append(addressStr);
+                builder.append(" ");
+            }
+
+            fnialAddress = builder.toString(); //This is the complete address.
+
+        } catch (IOException e) {}
+        catch (NullPointerException e) {}
+        return fnialAddress;
+        */
+
+        Geocoder gcd = new Geocoder(this, Locale.getDefault());
+        List<Address> addresses = null;
+        String locality="";
+        try {
+            addresses = gcd.getFromLocation(latti, longi, 1);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        if (addresses != null && addresses.size() > 0) {
+            locality = addresses.get(0).getLocality();
+        }
+        return locality;
+
+
+    }
+
+    protected void buildAlertMessageNoGps() {
+
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Please Turn ON your GPS Connection")
+                .setCancelable(false)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(final DialogInterface dialog, final int id) {
+                        startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    public void onClick(final DialogInterface dialog, final int id) {
+                        dialog.cancel();
+                    }
+                });
+        final AlertDialog alert = builder.create();
+        alert.show();
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+        textViewLocation.setText("Current Location: " + location.getLatitude() + ", " + location.getLongitude());
+    }
+
+    @Override
+    public void onProviderDisabled(String provider) {
+        Toast.makeText(AddNewLead.this, "Please Enable GPS and Internet", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+
+    }
+
+    @Override
+    public void onProviderEnabled(String provider) {
+            }
 
 
 
@@ -254,6 +506,7 @@ public class AddNewLead extends AppCompatActivity implements View.OnClickListene
         progressDialog.show();
 
         String str_salesRepEmail = salesRepEmail.getText().toString().trim();
+        Log.d("Sparsh App","Sales Rep Email : "+str_salesRepEmail);
         String str_salesRepID = salesRepID.getText().toString().trim();
         String str_salesRepRegion = salesRepRegion.getSelectedItem().toString();
         String str_salesRepRegionID="1";
@@ -343,19 +596,8 @@ public class AddNewLead extends AppCompatActivity implements View.OnClickListene
                 str_dealerCity+"\",\r\n \t\t\"country\": \"India\",\r\n \t\t\"state\": \""+str_dealerState+"\",\r\n \t\t\"zip\": \""+str_dealerPincode+
                 "\",\r\n \t}]\r\n }\r\n";*/
 
-        final String payLoad1 = "{\r\n\t\"operation\": \"create\",\r\n\t\"recordtype\": \"lead\",\r\n\t\"companyname\": \""+
-                str_dealerShopName+"\",\r\n\t\"custentity_sales_rep_id\": \""+str_salesRepID+"\",\r\n\t\"custentity_sales_rep_region\": "+
-                str_salesRepRegion+",\r\n\t\"custentity_owner_name\": \""+str_dealerName+"\",\r\n\t\"leadsource\": "+str_infosourceID+
-                ",\r\n\t\"custentity_lead_status_dealer\": "+str_leadStatusID+",\r\n\t\"custentity_dealer_type\":"+str_dealerTypeID+
-                ",\r\n\t\"custentity_current_dealer_brands\":\""+str_dealerDealingBrands+"\",\r\n\t\"custentitylead_created_by\":\""+
-                str_salesRepEmail+"\",\r\n\t\"phone\": \""+str_dealerPhone+"\",\r\n\t\"custentity3\": "+str_visitLevelID+
-                ",\r\n\t\"custentitycustentity_created_from\": 1,\r\n\t\"comments\": \""+str_detailsDiscussion+
-                "\",\r\n\t\"note\": \""+str_detailsDiscussion+"\",\r\n\t\"notetype\": 9,\r\n\t\"shippingaddress\": [{\r\n\t\t\"addr1\":\""+
-                str_address1+"\",\r\n\t\t\"addr2\":\""+str_address2+"\",\r\n\t\t\"city\": \""+str_dealerCity+
-                "\",\r\n\t\t\"country\": \"India\",\r\n\t\t\"state\": \""+str_dealerState+"\",\r\n\t\t\"zip\": \""+
-                str_dealerPincode+"\",\r\n\t}]\r\n}";
 
-        final String payLoad = "{\r\n\t\"operation\": \"create\",\r\n\t\"recordtype\": \"lead\",\r\n\t\"companyname\": \""+
+        final String payLoad1 = "{\r\n\t\"operation\": \"create\",\r\n\t\"recordtype\": \"lead\",\r\n\t\"companyname\": \""+
                 str_dealerShopName+"\",\r\n\t\"custentity_sales_rep_id\": \""+str_salesRepID+"\",\r\n\t\"custentity_sales_rep_region\": "+
                 str_salesRepRegionID+",\r\n\t\"custentity_owner_name\": \""+str_dealerName+"\",\r\n\t\"leadsource\": "+str_infosourceID+
                 ",\r\n\t\"custentity_lead_status_dealer\": "+str_leadStatusID+",\r\n\t\"custentity_dealer_type\":"+str_dealerTypeID+
@@ -364,8 +606,24 @@ public class AddNewLead extends AppCompatActivity implements View.OnClickListene
                 ",\r\n\t\"custentitycustentity_created_from\": 1,\r\n\t\"comments\": \""+str_detailsDiscussion+
                 "\",\r\n\t\"note\": \""+str_detailsDiscussion+"\",\r\n\t\"notetype\": 9,\r\n\t\"dropdownstate\":\""+str_dealerState+
                 "\",\r\n\t\"shippingaddress\": [{\r\n\t\t\"addr1\":\""+str_address1+"\",\r\n\t\t\"addr2\":\""+str_address2+
-                "\",\r\n\t\t\"city\": \""+str_dealerCity+"\",\r\n\t\t\"country\": \"India\",\r\n\t\t\"state\": \""+str_dealerState+
-                "\",\r\n\t\t\r\n\t\t\"zip\": \""+str_dealerPincode+"\",\r\n\t}]\r\n}";
+                "\",\r\n    \t\t\"custentitycust_longitude\":\""+longitude+"\",\r\n    \t\t\"custentitycust_lattitude\":\""+lattitude+
+                "\",\r\n    \t\t\"zip\": \""+str_dealerPincode+"\",\r\n    \t}]\r\n    }";
+
+
+        final String payLoad = "{\r\n    \t\"operation\": \"create\",\r\n    \t\"recordtype\": \"lead\",\r\n    \t\"companyname\": \""+
+        str_dealerShopName+"\",\r\n    \t\"custentity_sales_rep_id\": \""+str_salesRepID+"\",\r\n    \t\"custentity_sales_rep_region\": "+
+                str_salesRepRegionID+",\r\n    \t\"custentity_owner_name\": \""+str_dealerName+"\",\r\n    \t\"leadsource\": "+str_infosourceID+
+                ",\r\n    \t\"custentity_lead_status_dealer\": "+str_leadStatusID+",\r\n    \t\"custentity_dealer_type\":"+str_dealerTypeID+
+                ",\r\n    \t\"custentity_current_dealer_brands\":\""+str_dealerDealingBrands+"\",\r\n    \t\"custentitylead_created_by\":\""+
+                str_salesRepEmail+"\",\r\n    \t\"phone\": \""+str_dealerPhone+"\",\r\n    \t\"custentity3\": "+str_visitLevelID+
+                ",\r\n    \t\"custentitycustentity_created_from\": 1,\r\n    \t\"comments\": \""+str_detailsDiscussion+"\",\r\n    \t\"note\": \""+
+                str_detailsDiscussion+"\",\r\n    \t\"notetype\": 9,\r\n    \t\"custentitycust_longitude\":\""+longitude+
+                "\",\r\n    \t\"custentitycust_lattitude\":\""+lattitude+"\",\r\n    \t\"shippingaddress\": [{\r\n    \t\t\"addr1\":\""+
+                str_address1+"\",\r\n    \t\t\"addr2\":\""+str_address2+"\",\r\n    \t\t\"city\": \""+str_dealerCity+
+                "\",\r\n    \t\t\"country\": \"India\",\r\n    \t\t\"state\": \""+str_dealerState+"\",\r\n    \t\t\"custrecord_address_longitude\":\""+
+                longitude+"\",\r\n    \t\t\"custrecord_address_latitude\":\""+lattitude+"\",\r\n    \t\t\"zip\": \""+str_dealerPincode+"\",\r\n    \t}]\r\n    }";
+
+
 
 
 
@@ -462,6 +720,7 @@ public class AddNewLead extends AppCompatActivity implements View.OnClickListene
 
 
     }
+
 
 
 }
