@@ -3,6 +3,7 @@
 
 
 <color name="colorPrimary">#E73A10</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimaryDark">#E73A10</color>
+    <color name="colorAccent">#E73A10</color>
+    <color name="uper_text_color_ifc">#E73A10</color>
 </resources>

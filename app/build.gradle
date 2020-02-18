@@ -1,13 +1,15 @@
 apply plugin: 'com.android.application'
 
 android {
+
+
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.dlightindia.dddcapture"
         minSdkVersion 19
         targetSdkVersion 28
-        versionCode 4
-        versionName "1.5"
+        versionCode 15
+        versionName "2.6"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
     }
@@ -15,12 +17,22 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+
+        }
+        debug {
+            debuggable true
+            jniDebuggable true
+
+            renderscriptDebuggable false
+            renderscriptOptimLevel 3
+            minifyEnabled true
+            zipAlignEnabled true
         }
     }
     productFlavors {
     }
+    dataBinding.enabled = true
 }
-
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support:appcompat-v7:28.0.0'
@@ -34,11 +46,6 @@ dependencies {
     implementation 'com.android.support:design:28.0.0'
     implementation 'com.android.volley:volley:1.1.0'
     implementation 'com.github.scribejava:scribejava-apis:5.4.0'
-    implementation 'com.google.firebase:firebase-messaging:10.2.1'
-
-
-
-
 }
 
 

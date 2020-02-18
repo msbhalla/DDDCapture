@@ -2,7 +2,7 @@ package com.dlightindia.dddcapture;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.support.annotation.NonNull;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private TextView textViewSignin;
 
     private ProgressDialog progressDialog;
+    private TextView textViewPrivacyPolicy;
 
 
     //defining firebaseauth object
@@ -54,13 +55,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             finish();
 
             //and open profile activity
-            startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
+            startActivity(new Intent(getApplicationContext(), ProfileActivityNew.class));
         }
 
         //initializing views
         editTextEmail = (EditText) findViewById(R.id.editTextEmail);
         editTextPassword = (EditText) findViewById(R.id.editTextPassword);
         textViewSignin = (TextView) findViewById(R.id.textViewSignin);
+        textViewPrivacyPolicy = (TextView) findViewById((R.id.textViewPrivacyPolicy));
 
         buttonSignup = (Button) findViewById(R.id.buttonSignup);
 
@@ -69,6 +71,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //attaching listener to button
         buttonSignup.setOnClickListener(this);
         textViewSignin.setOnClickListener(this);
+        textViewPrivacyPolicy.setOnClickListener(this);
     }
 
     private void registerUser(){
@@ -104,11 +107,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         firebaseAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
+                    public void onComplete(Task<AuthResult> task) {
                         //checking if success
                         if(task.isSuccessful()){
                                 finish();
-                                startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
+                                startActivity(new Intent(getApplicationContext(), ProfileActivityNew.class));
                         }else{
                             //display some message here
 
@@ -130,6 +133,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if(view == textViewSignin){
             //open login activity when user taps on the already registered textview
             startActivity(new Intent(this, LoginActivity.class));
+        }
+
+        if (view == textViewPrivacyPolicy)
+        {
+            Uri uri = Uri.parse("https://system.na2.netsuite.com/core/media/media.nl?id=344027&c=5025835&h=c8b11903b1c96e92afae&_xt=.html //open privacy policy in browser window");
+            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+            startActivity(intent);
+
+
         }
 
     }

@@ -74,8 +74,17 @@
             android:text="Signup" />
 
         <TextView
-            android:text="Already Registered? Signin Here"
+            android:text="Already Registered? Sign-in Here"
             android:id="@+id/textViewSignin"
+            android:textAlignment="center"
+            android:layout_margin="15dp"
+            android:layout_width="match_parent"
+            android:textColor="#FFFFFF"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:text="Privacy Policy"
+            android:id="@+id/textViewPrivacyPolicy"
             android:textAlignment="center"
             android:layout_margin="15dp"
             android:layout_width="match_parent"

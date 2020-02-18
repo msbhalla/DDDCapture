@@ -5,4 +5,7 @@
     <dimen name="app_bar_height">180dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="text_margin">16dp</dimen>
+    <dimen name="edit_height_lead">45dp</dimen>
+    <dimen name="home_image">65dp</dimen>
+    <dimen name="sku_text_size">18sp</dimen>
 </resources>

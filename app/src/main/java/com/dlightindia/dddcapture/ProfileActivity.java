@@ -19,17 +19,15 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
     //firebase auth object
     private FirebaseAuth firebaseAuth;
-
     //view objects
     private TextView textViewUserEmail;
     private Button buttonLogout;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE); //will hide the title
-        getSupportActionBar().setTitle("d.light Sparsh");
+        getSupportActionBar().setTitle("d.light Profile");
         // hide the title bar
         //this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
         //       WindowManager.LayoutParams.FLAG_FULLSCREEN); //enable full screen
@@ -49,15 +47,11 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
         //getting current user
         FirebaseUser user = firebaseAuth.getCurrentUser();
-
-        //initializing views
+         //initializing views
         textViewUserEmail = (TextView) findViewById(R.id.textViewUserEmail);
-
-        //displaying logged in user name
+         //displaying logged in user name
         textViewUserEmail.setText("Welcome "+user.getEmail());
-
         GridView gridView = (GridView) findViewById(R.id.grid_view);
-
         // Instance of ImageAdapter Class
         gridView.setAdapter(new ImageAdapter(this));
 
@@ -72,19 +66,20 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
                 Intent i=null;
                 if(position==0)
                 {
-                  i = new Intent(getApplicationContext(), AddNewLead.class);
-
-                    //This is for web form
-                   // i = new Intent(getApplicationContext(), AddNewLead_WebForm.class);
-
-
-                }
-                if (position==1)
+                  i = new Intent(getApplicationContext(), Lead.class);
+                 }
+               else if (position==1)
                 {
-                  //  i = new Intent(getApplicationContext(), UpdateLead.class);
+                    i = new Intent(getApplicationContext(), Sales.class);
+                 }
+                else if (position==2)
+                {
                     i = new Intent(getApplicationContext(),SearchLeadActivity.class);
+                  }else if (position==3)
+                {
+                    i = new Intent(getApplicationContext(), MarketWorking.class);
                 }
-                if (position==2)
+                else if (position==4)
                 {
                     i = new Intent(getApplicationContext(), AboutApp.class);
                 }
@@ -99,7 +94,11 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         //adding listener to button
         buttonLogout.setOnClickListener(this);
     }
-
+    @Override
+    public boolean onSupportNavigateUp(){
+        finish();
+        return true;
+    }
     @Override
     public void onClick(View view) {
         //if logout is pressed

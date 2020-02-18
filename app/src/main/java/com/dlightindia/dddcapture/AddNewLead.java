@@ -74,13 +74,7 @@ public class AddNewLead extends AppCompatActivity implements View.OnClickListene
     private LocationListener locationListener=null;
     private static final String REST_URL = "https://5025835.restlets.api.netsuite.com/app/site/hosting/restlet.nl?script=181&deploy=1";
     //location
-    private String mLastUpdateTime;
-    private static final long UPDATE_INTERVAL_IN_MILLISECONDS = 10000;
-    private static final long FASTEST_UPDATE_INTERVAL_IN_MILLISECONDS = 2000;
-    private static final int REQUEST_CHECK_SETTINGS = 100;
     String lattitude,longitude;
-
-
 
     // boolean flag to toggle the ui
     private Boolean mRequestingLocationUpdates;
@@ -564,7 +558,7 @@ void getLocation()
 
 
 
-        String str_detailsDiscussion = detailsDiscussion.getText().toString().trim();
+        String str_detailsDiscussion = detailsDiscussion.getText().toString().replace('\n',' ').trim();
         String str_LeadStatus = leadStatus.getSelectedItem().toString().trim();
         String str_leadStatusID="2";
         if (str_LeadStatus=="Hot")
@@ -705,12 +699,60 @@ void getLocation()
                     catch (Exception e)
                     {
                         Log.d("Sparsh App", e.getMessage());
+                        final String err = e.getMessage().toString().trim();
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                progressDialog.dismiss();
+                                alertDialogBuilder = new AlertDialog.Builder(AddNewLead.this);
+
+
+                                alertDialogBuilder.setTitle("Failed");
+                                alertDialogBuilder.setMessage("Your lead has not been saved. Error: "+err);
+                                alertDialogBuilder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        startActivity(new Intent(AddNewLead.this, LoginActivity.class));
+                                    }
+                                });
+                                alertDialog = alertDialogBuilder.create();
+                                alertDialog.show();
+
+
+                                //Toast.makeText(AddNewLead.this,"Error in saving lead. Please check your data again!",Toast.LENGTH_LONG).show();
+
+                            }
+                        });
                     }
 
 
                 } catch (Exception e) {
                     e.printStackTrace();
                     Log.d("Sparsh App","Exception :"+e.getStackTrace());
+                    final String err1 = e.getMessage().toString().trim();
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            progressDialog.dismiss();
+                            alertDialogBuilder = new AlertDialog.Builder(AddNewLead.this);
+
+
+                            alertDialogBuilder.setTitle("Failed");
+                            alertDialogBuilder.setMessage("Your lead has not been saved. Error: "+err1);
+                            alertDialogBuilder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    startActivity(new Intent(AddNewLead.this, LoginActivity.class));
+                                }
+                            });
+                            alertDialog = alertDialogBuilder.create();
+                            alertDialog.show();
+
+
+                            //Toast.makeText(AddNewLead.this,"Error in saving lead. Please check your data again!",Toast.LENGTH_LONG).show();
+
+                        }
+                    });
                 }
             }
         });

@@ -2,7 +2,7 @@ package com.dlightindia.dddcapture;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.support.annotation.NonNull;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -29,6 +29,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private EditText editTextPassword;
     private TextView textViewSignup;
     private TextView textForgotPwd;
+    private TextView textPrivacyPolicy;
 
     //firebase auth object
     private FirebaseAuth firebaseAuth;
@@ -45,25 +46,23 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         //this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
         //       WindowManager.LayoutParams.FLAG_FULLSCREEN); //enable full screen
         setContentView(R.layout.activity_login);
-
-        //getting firebase auth object
+         //getting firebase auth object
         firebaseAuth = FirebaseAuth.getInstance();
 
         //if the objects getcurrentuser method is not null
         //means user is already logged in
         if (firebaseAuth.getCurrentUser() != null) {
-            //close this activity
-            finish();
-            //opening profile activity
-            startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
+             finish();
+             startActivity(new Intent(getApplicationContext(), ProfileActivityNew.class));
         }
 
         //initializing views
         editTextEmail = (EditText) findViewById(R.id.editTextEmail);
-        editTextPassword = (EditText) findViewById(R.id.editTextPassword);
-        buttonSignIn = (Button) findViewById(R.id.buttonSignin);
+         editTextPassword = (EditText) findViewById(R.id.editTextPassword);
+         buttonSignIn = (Button) findViewById(R.id.buttonSignin);
         textViewSignup = (TextView) findViewById(R.id.textViewSignUp);
         textForgotPwd = (TextView) findViewById(R.id.textViewForgotPassword);
+         textPrivacyPolicy = (TextView) findViewById(R.id.textViewPrivacyPolicyLogin);
 
 
         progressDialog = new ProgressDialog(this);
@@ -72,6 +71,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         buttonSignIn.setOnClickListener(this);
         textViewSignup.setOnClickListener(this);
         textForgotPwd.setOnClickListener(this);
+        textPrivacyPolicy.setOnClickListener(this);
     }
 
 
@@ -90,7 +90,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     .addOnCompleteListener(new OnCompleteListener<Void>() {
 
                                                 @Override
-                                               public void onComplete(@NonNull Task<Void> task) {
+                                               public void onComplete(Task<Void> task) {
                                                     progressDialog.dismiss();
                                                     if (task.isSuccessful()) {
                                                        Toast.makeText(LoginActivity.this, "Please check your email", Toast.LENGTH_LONG).show();
@@ -135,13 +135,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         firebaseAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
+                    public void onComplete(Task<AuthResult> task) {
                         progressDialog.dismiss();
                         //if the task is successfull 
                         if (task.isSuccessful()) {
                             //start the profile activity
                             finish();
-                            startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
+                            startActivity(new Intent(getApplicationContext(), ProfileActivityNew.class));
                         } else {
                             Toast.makeText(LoginActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
                             return;
@@ -158,7 +158,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
 
         if (view == textViewSignup) {
-            finish();
+           // finish();
             startActivity(new Intent(this, MainActivity.class));
         }
 
@@ -166,5 +166,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             forgetPassword();
 
         }
+        if (view == textPrivacyPolicy)
+        {
+            Uri uri = Uri.parse("https://system.na2.netsuite.com/core/media/media.nl?id=344027&c=5025835&h=c8b11903b1c96e92afae&_xt=.html");
+            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+            startActivity(intent);
+
+
+        }
+
+
     }
 }

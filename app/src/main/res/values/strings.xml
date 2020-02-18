@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">d.light Sparsh</string>
+    <string name="app_name">Sparsh by d.light India</string>
     <string name="spinner_state">Select dealer\'s state</string>
 
     <string name="about_text">d.light is a global leader and pioneer in delivering affordable solar-powered solutions designed for the two billion people in the developing world without access to reliable energy. d.light provides distributed solar energy solutions for households and small businesses that are transforming the way people all over the world use and pay for energy. Through four hubs in Africa, China, South Asia and the United States, d.light has sold over 20 million solar light and power products in 65 countries, improving the lives of over 90 million people. d.light is dedicated to providing the most reliable, affordable and accessible solar lighting and power systems for the developing world and reaching 100 million people by 2020.</string>
@@ -97,6 +97,6 @@
     <string name="searchLeadTitle">Please enter the ID of the lead which you want to update</string>
     <string name="emailAddress">Enter your email address</string>
     <string name="regionprompt">Select region</string>
-
+     <string name="gps_check">Please on your location, or check your loaction on google map</string>
 
 </resources>

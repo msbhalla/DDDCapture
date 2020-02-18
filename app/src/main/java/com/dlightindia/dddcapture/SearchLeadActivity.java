@@ -1,8 +1,16 @@
 package com.dlightindia.dddcapture;
 
+import android.Manifest;
+import android.content.Context;
 import android.content.RestrictionEntry;
+import android.content.pm.PackageManager;
 import android.graphics.Paint;
+import android.location.Address;
+import android.location.Geocoder;
 import android.net.Uri;
+import android.provider.Settings;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.app.ProgressDialog;
@@ -29,9 +37,16 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
+import java.io.IOException;
 import java.util.Iterator;
+import java.util.List;
+import java.util.Locale;
 
-public class SearchLeadActivity extends AppCompatActivity implements View.OnClickListener, View.OnFocusChangeListener  {
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
+
+public class SearchLeadActivity extends AppCompatActivity implements View.OnClickListener, View.OnFocusChangeListener, LocationListener  {
 
     private Button buttonSearchLead;
     private EditText editTextSearchLeadID;
@@ -57,6 +72,16 @@ public class SearchLeadActivity extends AppCompatActivity implements View.OnClic
     private String str_lattitude=null;
     private String str_longitude=null;
     private TextView textViewLocation;
+    private boolean flagLocationAvailable=false;
+    private LocationManager locationManager=null;
+    private LocationListener locationListener=null;
+    private static final long UPDATE_INTERVAL_IN_MILLISECONDS = 10000;
+    private static final long FASTEST_UPDATE_INTERVAL_IN_MILLISECONDS = 2000;
+    private static final int REQUEST_CHECK_SETTINGS = 100;
+    String lattitude,longitude;
+    private Boolean mRequestingLocationUpdates;
+    String provider;
+    private static final int REQUEST_LOCATION = 1;
 
     @Override
     public boolean isVoiceInteraction() {
@@ -67,7 +92,8 @@ public class SearchLeadActivity extends AppCompatActivity implements View.OnClic
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_lead);
-
+        getSupportActionBar().setTitle("D.light Search");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         textViewSearchLeadIDResults  = (TextView) findViewById(R.id.textViewLeadSearchResult);
         textViewPhone = (TextView) findViewById(R.id.textViewPhone);
        textViewLocation = (TextView) findViewById(R.id.textViewLocation);
@@ -112,6 +138,9 @@ public class SearchLeadActivity extends AppCompatActivity implements View.OnClic
             }
             else
             {
+                str_longitude = null;
+                str_lattitude = null;
+                flagLocationAvailable = false;
                 searchLead();
             }
         }
@@ -282,8 +311,22 @@ public class SearchLeadActivity extends AppCompatActivity implements View.OnClic
 
                     textViewPhone.setText("Phone : " + str_phone);
 
-                    if ((str_lattitude!=null) && (str_longitude!=null))
+                    if ((str_lattitude!=null) && (str_longitude!=null)) {
+                        flagLocationAvailable = true;
                         textViewLocation.setText("Click here to see location in Map");
+                    }
+                    else
+                    {
+                        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+                        if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+                            buildAlertMessageNoGps();
+
+                        } else if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+                            getLocation();
+                        }
+
+                    }
+
                     textViewSearchLeadIDResults.setText(resultString);
 
                     spinnerLeadStatusUpdate.setSelection(((ArrayAdapter) spinnerLeadStatusUpdate.getAdapter()).getPosition(str_leadStatus));
@@ -309,6 +352,199 @@ public class SearchLeadActivity extends AppCompatActivity implements View.OnClic
             Log.d("Sparsh App Exception",e.getMessage());
         }
     }
+
+
+    public boolean checkLocationPermission()
+    {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)!= PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION)) {
+                new AlertDialog.Builder(this)
+                        .setTitle("Permission needed to access location")
+                        .setMessage("This app needs permission to access your GPS location")
+                        .setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                ActivityCompat.requestPermissions(SearchLeadActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 99);
+                            }
+                        })
+                        .create()
+                        .show();
+            } else {
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                        99);
+            }
+            return false;
+
+        }
+        else
+        {
+            return true;
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case 99: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    // permission was granted, yay! Do the
+                    // location-related task you need to do.
+                    if (ContextCompat.checkSelfPermission(this,
+                            Manifest.permission.ACCESS_FINE_LOCATION)
+                            == PackageManager.PERMISSION_GRANTED) {
+
+                        //Request location updates:
+                        locationManager.requestLocationUpdates(provider, 400, 1, SearchLeadActivity.this);
+                    }
+
+                } else {
+
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+
+                }
+                return;
+            }
+
+        }
+    }
+
+    void getLocation()
+    {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission
+                (this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
+
+        } else {
+            Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+
+            Location location1 = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+
+            Location location2 = locationManager.getLastKnownLocation(LocationManager. PASSIVE_PROVIDER);
+
+            if (location != null) {
+                double latti = location.getLatitude();
+                double longi = location.getLongitude();
+                str_lattitude = String.valueOf(latti);
+                str_longitude = String.valueOf(longi);
+
+                textViewLocation.setText("Click here to see your current location in Map");
+                //textViewLocation.setText("Your current location is"+ "\n" + "Lattitude = " + lattitude
+                 //       + "\n" + "Longitude = " + longitude + "\nLocation Name : "+getLocationName(latti,longi));
+
+            } else  if (location1 != null) {
+                double latti = location1.getLatitude();
+                double longi = location1.getLongitude();
+                str_lattitude = String.valueOf(latti);
+                str_longitude = String.valueOf(longi);
+
+                textViewLocation.setText("Click here to see your current location in Map");
+                //textViewLocation.setText("Your current location is"+ "\n" + "Lattitude = " + lattitude
+                //       + "\n" + "Longitude = " + longitude + "\nLocation Name : "+getLocationName(latti,longi));
+
+
+            } else  if (location2 != null) {
+                double latti = location2.getLatitude();
+                double longi = location2.getLongitude();
+                str_lattitude = String.valueOf(latti);
+                str_longitude = String.valueOf(longi);
+
+                textViewLocation.setText("Click here to see your current location in Map");
+                //textViewLocation.setText("Your current location is"+ "\n" + "Lattitude = " + lattitude
+                //       + "\n" + "Longitude = " + longitude + "\nLocation Name : "+getLocationName(latti,longi));
+
+            }else{
+
+                Toast.makeText(this,"Unable to trace your location",Toast.LENGTH_SHORT).show();
+
+            }
+        }
+    }
+
+    protected String getLocationName(double latti, double longi)
+    {
+        /*
+        Geocoder geoCoder = new Geocoder(this, Locale.getDefault());
+        String fnialAddress="";//it is Geocoder
+        StringBuilder builder = new StringBuilder();
+        try {
+
+            List<Address> address = geoCoder.getFromLocation(latti, longi, 1);
+            int maxLines = address.get(0).getMaxAddressLineIndex();
+            for (int i=0; i<maxLines; i++) {
+                String addressStr = address.get(0).getAddressLine(i);
+                builder.append(addressStr);
+                builder.append(" ");
+            }
+
+            fnialAddress = builder.toString(); //This is the complete address.
+
+        } catch (IOException e) {}
+        catch (NullPointerException e) {}
+        return fnialAddress;
+        */
+
+        Geocoder gcd = new Geocoder(this, Locale.getDefault());
+        List<Address> addresses = null;
+        String locality="";
+        try {
+            addresses = gcd.getFromLocation(latti, longi, 1);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        if (addresses != null && addresses.size() > 0) {
+            locality = addresses.get(0).getLocality();
+        }
+        return locality;
+
+
+    }
+
+    protected void buildAlertMessageNoGps() {
+
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Please Turn ON your GPS Connection")
+                .setCancelable(false)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(final DialogInterface dialog, final int id) {
+                        startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    public void onClick(final DialogInterface dialog, final int id) {
+                        dialog.cancel();
+                    }
+                });
+        final AlertDialog alert = builder.create();
+        alert.show();
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+        textViewLocation.setText("Current Location: " + location.getLatitude() + ", " + location.getLongitude());
+    }
+
+    @Override
+    public void onProviderDisabled(String provider) {
+        Toast.makeText(SearchLeadActivity.this, "Please Enable GPS and Internet", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+
+    }
+
+    @Override
+    public void onProviderEnabled(String provider) {
+    }
+
 
 
     public void updateLead()
@@ -379,9 +615,16 @@ public class SearchLeadActivity extends AppCompatActivity implements View.OnClic
                 leadStatus = 3;
             if(spinnerLeadStatusUpdate.getSelectedItem().toString().trim()=="Declined")
                 leadStatus = 4;
-        final String payLoad = "{\r\n\t\"operation\": \"update\",\r\n\t\"recordtype\": \"lead\",\r\n\t\"id\" : \""+
-              lead_internalid+"\",\r\n\t\"custentity_lead_status_dealer\": "+leadStatus+",\r\n\t\"custentity3\": "+visitLevel+",\r\n\t\"note\": \""+editTextUpdateComments.getText().toString().trim()+"\",\r\n\t\"notetype\": 9\r\n}";
 
+            //capture current location
+
+
+
+        final String payLoad = "{\r\n\t\"operation\": \"update\",\r\n\t\"recordtype\": \"lead\",\r\n\t\"id\" : \""+
+              lead_internalid+"\",\r\n\t\"custentity_lead_status_dealer\": "+leadStatus+",\r\n\t\"custentity3\": "+visitLevel+",\r\n\t\"note\": \""+editTextUpdateComments.getText().toString().replace('\n',' ').trim()+"\",\r\n\t\"notetype\": 9\r\n}";
+        final String payLoad1 = "{\r\n\t\"operation\": \"update\",\r\n\t\"recordtype\": \"lead\",\r\n\t\"id\" : \""+
+                lead_internalid+"\",\r\n\t\"custentity_lead_status_dealer\": "+leadStatus+",\r\n\t\"custentity3\": "+visitLevel+",\r\n\t\"note\": \""+editTextUpdateComments.getText().toString().replace('\n',' ').trim()+"\",\r\n\t\"notetype\": 9,\r\n\t\"custentitycust_lattitude\":\""+
+                str_lattitude+"\",\r\n\t\"custentitycust_longitude\":\""+str_longitude+"\"\r\n}";
 
         final CallNetSuiteAPI callNetSuiteAPI = new CallNetSuiteAPI();
 
@@ -391,7 +634,14 @@ public class SearchLeadActivity extends AppCompatActivity implements View.OnClic
             public void run() {
                 try  {
                     //Your code goes here
-                    Response response = callNetSuiteAPI.main(payLoad,REST_UPDATE_URL);
+                    Response response=null;
+                    if (flagLocationAvailable == true) {
+                        response = callNetSuiteAPI.main(payLoad, REST_UPDATE_URL);
+                    }
+                    if (flagLocationAvailable == false)
+                    {
+                        response = callNetSuiteAPI.main(payLoad1, REST_UPDATE_URL);
+                    }
                     try {
                         final JSONObject responseJSONObbject = new JSONObject(response.getBody());
                         if (responseJSONObbject != null) {
@@ -453,12 +703,61 @@ public class SearchLeadActivity extends AppCompatActivity implements View.OnClic
                     catch (Exception e)
                     {
                         Log.d("Sparsh App", e.getMessage());
+                        final String err = e.getMessage().toString().trim();
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                progressDialog.dismiss();
+                                alertDialogBuilder = new AlertDialog.Builder(SearchLeadActivity.this);
+
+
+                                alertDialogBuilder.setTitle("Failed");
+                                alertDialogBuilder.setMessage("Your lead has not been saved. Error: "+err);
+                                alertDialogBuilder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        startActivity(new Intent(SearchLeadActivity.this, LoginActivity.class));
+                                    }
+                                });
+                                alertDialog = alertDialogBuilder.create();
+                                alertDialog.show();
+
+
+                                //Toast.makeText(AddNewLead.this,"Error in saving lead. Please check your data again!",Toast.LENGTH_LONG).show();
+
+                            }
+                        });
                     }
 
 
                 } catch (Exception e) {
                     e.printStackTrace();
                     Log.d("Sparsh App","Exception :"+e.getStackTrace());
+                    Log.d("Sparsh App", e.getMessage());
+                    final String err = e.getMessage().toString().trim();
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            progressDialog.dismiss();
+                            alertDialogBuilder = new AlertDialog.Builder(SearchLeadActivity.this);
+
+
+                            alertDialogBuilder.setTitle("Failed");
+                            alertDialogBuilder.setMessage("Your lead has not been saved. Error: "+err);
+                            alertDialogBuilder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    startActivity(new Intent(SearchLeadActivity.this, LoginActivity.class));
+                                }
+                            });
+                            alertDialog = alertDialogBuilder.create();
+                            alertDialog.show();
+
+
+                            //Toast.makeText(AddNewLead.this,"Error in saving lead. Please check your data again!",Toast.LENGTH_LONG).show();
+
+                        }
+                    });
                 }
             }
         });

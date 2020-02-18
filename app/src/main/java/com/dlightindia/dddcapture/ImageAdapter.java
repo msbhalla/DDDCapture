@@ -6,17 +6,17 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 public class ImageAdapter extends BaseAdapter {
     private Context mContext;
 
     // Keep all Images in array
     public Integer[] mThumbIds = {
-            R.drawable.icon_adddealer, R.drawable.icon_updatedealer,
+            R.drawable.lead_image,R.drawable.sales, R.drawable.icon_updatedealer,R.drawable.marketing,
             R.drawable.icon_about,
     };
-
-    // Constructor
+     // Constructor
     public ImageAdapter(Context c){
         mContext = c;
     }
