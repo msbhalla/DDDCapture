@@ -1,0 +1,1222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:background="#E8E8E8"
+        tools:context=".SKU"
+        android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/txt_enter_mobile_caption"
+            android:layout_width="wrap_content"
+            android:text="SEP mobile no."
+            android:layout_marginLeft="15dp"
+            android:textColor="@color/uper_text_color_ifc"
+            android:layout_marginTop="5dp"
+            android:layout_height="wrap_content"></TextView>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/edit_height_lead"
+            android:layout_margin="4dp"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/edit_arcode"
+                android:layout_width="270dp"
+                android:layout_marginLeft="10dp"
+                android:layout_height="match_parent"
+                android:inputType="number"
+                 android:paddingLeft="5dp"
+                android:hint="Mobile no."
+                android:maxLength="10"
+                android:background="@drawable/round_corner"
+                />
+        </LinearLayout>
+
+        />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:orientation="horizontal"
+            android:weightSum="3">
+
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_weight="1"
+                    android:layout_marginTop="5dp"
+                    android:text="SKU"
+                    android:textColor="#000"
+                    android:textSize="18sp"
+                    android:textStyle="bold"></TextView>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                     android:gravity="center"
+                    android:layout_weight="1"
+                    android:text="Quantity"
+                    android:textColor="#000"
+                    android:textSize="18sp"
+                    android:textStyle="bold"></TextView>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:text="Value"
+                android:textColor="#000"
+                android:textSize="18sp"
+                android:textStyle="bold"></TextView>
+
+        </LinearLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <ScrollView
+                android:layout_width="match_parent"
+                android:fillViewport="true"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="vertical"
+                    android:layout_height="match_parent"
+                    >
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:orientation="horizontal"
+                        android:weightSum="3">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_weight="1"
+                            android:text="A2:"
+                            android:textColor="#000"
+                            android:textSize="22sp"></TextView>
+                        <EditText
+                            android:id="@+id/edit_a2_quntity"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/edit_height_lead"
+                            android:layout_margin="5dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/round_corner"
+                            android:inputType="number"
+                            android:maxLength="3"
+                            android:paddingLeft="4dp"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp" />
+                        <EditText
+                            android:id="@+id/edit_a2_value"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/edit_height_lead"
+                            android:layout_margin="5dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/round_corner"
+                            android:inputType="number"
+                            android:maxLength="5"
+                            android:paddingLeft="4dp"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:orientation="horizontal"
+                        android:weightSum="3">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_weight="1"
+                            android:text="S3:"
+                            android:textColor="#000"
+                            android:textSize="22sp"></TextView>
+                        <EditText
+                            android:id="@+id/edit_s3_quntity"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/edit_height_lead"
+                            android:layout_margin="5dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/round_corner"
+                            android:inputType="number"
+                            android:paddingLeft="4dp"
+                            android:maxLength="3"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp" />
+                        <EditText
+                            android:id="@+id/edit_s3_value"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/edit_height_lead"
+                            android:layout_margin="5dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/round_corner"
+                            android:inputType="number"
+                            android:paddingLeft="4dp"
+                            android:maxLength="5"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:orientation="horizontal"
+                        android:weightSum="3">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_weight="1"
+                            android:text="S30:"
+                            android:textColor="#000"
+                            android:textSize="22sp"></TextView>
+                        <EditText
+                            android:id="@+id/edit_s30_quntity"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/edit_height_lead"
+                            android:layout_margin="5dp"
+                            android:layout_weight="1"
+                            android:maxLength="3"
+                            android:background="@drawable/round_corner"
+                            android:inputType="number"
+                            android:paddingLeft="4dp"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp" />
+                        <EditText
+                            android:id="@+id/edit_s30_value"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/edit_height_lead"
+                            android:layout_margin="5dp"
+                            android:layout_weight="1"
+                            android:maxLength="5"
+                            android:background="@drawable/round_corner"
+                            android:inputType="number"
+                            android:paddingLeft="4dp"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:orientation="horizontal"
+                        android:weightSum="3">
+
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_weight="1"
+                            android:text="S200:"
+                            android:textColor="#000"
+                            android:textSize="22sp"></TextView>
+                        <EditText
+                            android:id="@+id/edit_s200_quntity"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/edit_height_lead"
+                            android:layout_margin="5dp"
+                            android:layout_weight="1"
+                            android:maxLength="3"
+                            android:background="@drawable/round_corner"
+                            android:inputType="number"
+                            android:paddingLeft="4dp"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp" />
+                        <EditText
+                            android:id="@+id/edit_s200_value"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/edit_height_lead"
+                            android:layout_margin="5dp"
+                            android:layout_weight="1"
+                            android:maxLength="5"
+                            android:background="@drawable/round_corner"
+                            android:inputType="number"
+                            android:paddingLeft="4dp"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:orientation="horizontal"
+                        android:weightSum="3">
+
+
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_weight="1"
+                            android:text="SF20:"
+                            android:textColor="#000"
+                            android:textSize="22sp"></TextView>
+                        <EditText
+                            android:id="@+id/edit_sf20_quntity"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/edit_height_lead"
+                            android:layout_margin="5dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/round_corner"
+                            android:inputType="number"
+                            android:maxLength="3"
+                            android:paddingLeft="4dp"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp" />
+                        <EditText
+                            android:id="@+id/edit_sf20_value"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/edit_height_lead"
+                            android:layout_margin="5dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/round_corner"
+                            android:inputType="number"
+                            android:maxLength="5"
+                            android:paddingLeft="4dp"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:orientation="horizontal"
+                        android:weightSum="3">
+
+
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_weight="1"
+                            android:text="ST100:"
+                            android:textColor="#000"
+                            android:textSize="22sp"></TextView>
+                        <EditText
+                            android:id="@+id/edit_st100_quntity"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/edit_height_lead"
+                            android:layout_margin="5dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/round_corner"
+                            android:inputType="number"
+                            android:paddingLeft="4dp"
+                            android:paddingTop="5dp"
+                            android:maxLength="3"
+                            android:paddingBottom="5dp" />
+                        <EditText
+                            android:id="@+id/edit_st100_value"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/edit_height_lead"
+                            android:layout_margin="5dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/round_corner"
+                            android:inputType="number"
+                            android:paddingLeft="4dp"
+                            android:paddingTop="5dp"
+                            android:maxLength="5"
+                            android:paddingBottom="5dp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:orientation="horizontal"
+                        android:weightSum="3">
+
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_weight="1"
+                            android:text="S500B:"
+                            android:textColor="#000"
+                            android:textSize="22sp"></TextView>
+                        <EditText
+                            android:id="@+id/edit_s500b_quntity"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/edit_height_lead"
+                            android:layout_margin="5dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/round_corner"
+                            android:maxLength="3"
+                            android:inputType="number"
+                            android:paddingLeft="4dp"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp" />
+                        <EditText
+                            android:id="@+id/edit_s500b_value"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/edit_height_lead"
+                            android:layout_margin="5dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/round_corner"
+                            android:maxLength="5"
+                            android:inputType="number"
+                            android:paddingLeft="4dp"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:orientation="horizontal"
+                        android:weightSum="3">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_weight="1"
+                            android:text="D333:"
+                            android:textColor="#000"
+                            android:textSize="22sp"></TextView>
+                        <EditText
+                        android:id="@+id/edit_d333_quntity"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/edit_height_lead"
+                        android:layout_margin="5dp"
+                        android:maxLength="3"
+                        android:layout_weight="1"
+                        android:background="@drawable/round_corner"
+                        android:inputType="number"
+                        android:paddingLeft="4dp"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="5dp" />
+                        <EditText
+                            android:id="@+id/edit_d333_value"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/edit_height_lead"
+                            android:layout_margin="5dp"
+                            android:maxLength="5"
+                            android:layout_weight="1"
+                            android:background="@drawable/round_corner"
+                            android:inputType="number"
+                            android:paddingLeft="4dp"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:orientation="horizontal"
+                        android:weightSum="3">
+
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_weight="1"
+                            android:text="Solar Panel 10W:"
+                            android:textColor="#000"
+                            android:textSize="22sp"></TextView>
+                        <EditText
+                            android:id="@+id/edit_soler_10_quntity"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/edit_height_lead"
+                            android:layout_margin="5dp"
+                            android:maxLength="3"
+                            android:layout_weight="1"
+                            android:background="@drawable/round_corner"
+                            android:inputType="number"
+                            android:paddingLeft="4dp"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp" />
+                        <EditText
+                            android:id="@+id/edit_soler_10_value"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/edit_height_lead"
+                            android:layout_margin="5dp"
+                            android:maxLength="5"
+                            android:layout_weight="1"
+                            android:background="@drawable/round_corner"
+                            android:inputType="number"
+                            android:paddingLeft="4dp"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:orientation="horizontal"
+                        android:weightSum="3">
+
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_weight="1"
+                            android:text="Solar Panel 20W:"
+                            android:textColor="#000"
+                            android:textSize="22sp"></TextView>
+                        <EditText
+                            android:id="@+id/edit_soler_20_quntity"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/edit_height_lead"
+                            android:layout_margin="5dp"
+                            android:layout_weight="1"
+                            android:maxLength="3"
+                            android:background="@drawable/round_corner"
+                            android:inputType="number"
+                            android:paddingLeft="4dp"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp" />
+                        <EditText
+                            android:id="@+id/edit_soler_20_value"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/edit_height_lead"
+                            android:layout_margin="5dp"
+                            android:layout_weight="1"
+                            android:maxLength="5"
+                            android:background="@drawable/round_corner"
+                            android:inputType="number"
+                            android:paddingLeft="4dp"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:orientation="horizontal"
+                        android:weightSum="3">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_weight="1"
+                            android:text="Solar Panel 50W:"
+                            android:textColor="#000"
+                            android:textSize="22sp"></TextView>
+
+                        <EditText
+                            android:id="@+id/edit_soler_50_quntity"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/edit_height_lead"
+                            android:layout_margin="5dp"
+                            android:maxLength="3"
+                            android:layout_weight="1"
+                            android:background="@drawable/round_corner"
+                            android:inputType="number"
+                            android:paddingLeft="4dp"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp" />
+                        <EditText
+                            android:id="@+id/edit_soler_50_value"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/edit_height_lead"
+                            android:layout_margin="5dp"
+                            android:maxLength="5"
+                            android:layout_weight="1"
+                            android:background="@drawable/round_corner"
+                            android:inputType="number"
+                            android:paddingLeft="4dp"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp" />
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:orientation="horizontal"
+                        android:weightSum="3">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_weight="1"
+                            android:text="Solar Panel 100W:"
+                            android:textColor="#000"
+                            android:textSize="22sp"></TextView>
+
+                        <EditText
+                            android:id="@+id/edit_soler_100_quntity"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/edit_height_lead"
+                            android:maxLength="3"
+                            android:layout_margin="5dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/round_corner"
+                            android:inputType="number"
+                            android:paddingLeft="4dp"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp" />
+                        <EditText
+                            android:id="@+id/edit_soler_100_value"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/edit_height_lead"
+                            android:maxLength="5"
+                            android:layout_margin="5dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/round_corner"
+                            android:inputType="number"
+                            android:paddingLeft="4dp"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:orientation="horizontal"
+                        android:weightSum="3">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_weight="1"
+                            android:text="Solar Panel 160W:"
+                            android:textColor="#000"
+                            android:textSize="22sp"></TextView>
+
+                        <EditText
+                            android:id="@+id/edit_soler_160_quntity"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/edit_height_lead"
+                            android:layout_margin="5dp"
+                            android:layout_weight="1"
+                            android:maxLength="3"
+                            android:background="@drawable/round_corner"
+                            android:inputType="number"
+                            android:paddingLeft="4dp"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp" />
+
+                        <EditText
+                            android:id="@+id/edit_soler_160_value"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/edit_height_lead"
+                            android:layout_margin="5dp"
+                            android:layout_weight="1"
+                            android:maxLength="5"
+                            android:background="@drawable/round_corner"
+                            android:inputType="number"
+                            android:paddingLeft="4dp"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:orientation="horizontal"
+                        android:weightSum="3">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_weight="1"
+                            android:text="Solar Panel 320W:"
+                            android:textColor="#000"
+                            android:textSize="22sp"></TextView>
+
+                        <EditText
+                            android:id="@+id/edit_soler_320_quntity"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/edit_height_lead"
+                            android:layout_margin="5dp"
+                            android:layout_weight="1"
+                            android:maxLength="3"
+                            android:background="@drawable/round_corner"
+                            android:inputType="number"
+                            android:paddingLeft="4dp"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp" />
+                        <EditText
+                            android:id="@+id/edit_soler_320_value"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/edit_height_lead"
+                            android:layout_margin="5dp"
+                            android:layout_weight="1"
+                            android:maxLength="5"
+                            android:background="@drawable/round_corner"
+                            android:inputType="number"
+                            android:paddingLeft="4dp"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:orientation="horizontal"
+                        android:weightSum="3">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_weight="1"
+                            android:text="Inverter:"
+                            android:textColor="#000"
+                            android:textSize="22sp"></TextView>
+
+                        <EditText
+                            android:id="@+id/edit_soler_invertor_quntity"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/edit_height_lead"
+                            android:layout_margin="5dp"
+                            android:layout_weight="1"
+                            android:maxLength="3"
+                            android:background="@drawable/round_corner"
+                            android:inputType="number"
+                            android:paddingLeft="4dp"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp" />
+                        <EditText
+                            android:id="@+id/edit_soler_invertor_value"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/edit_height_lead"
+                            android:layout_margin="5dp"
+                            android:layout_weight="1"
+                            android:maxLength="5"
+                            android:background="@drawable/round_corner"
+                            android:inputType="number"
+                            android:paddingLeft="4dp"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:orientation="horizontal"
+                        android:weightSum="3">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_weight="1"
+                            android:text="A1:"
+                            android:textColor="#000"
+                            android:textSize="22sp"></TextView>
+
+                        <EditText
+                            android:id="@+id/edit_a1_quntity"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/edit_height_lead"
+                            android:layout_margin="5dp"
+                            android:maxLength="3"
+                            android:layout_weight="1"
+                            android:background="@drawable/round_corner"
+                            android:inputType="number"
+                            android:paddingLeft="4dp"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp" />
+                        <EditText
+                            android:id="@+id/edit_a1_value"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/edit_height_lead"
+                            android:layout_margin="5dp"
+                            android:maxLength="5"
+                            android:layout_weight="1"
+                            android:background="@drawable/round_corner"
+                            android:inputType="number"
+                            android:paddingLeft="4dp"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp" />
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:orientation="horizontal"
+                        android:weightSum="3">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_weight="1"
+                            android:text="S20:"
+                            android:textColor="#000"
+                            android:textSize="22sp"></TextView>
+
+                        <EditText
+                            android:id="@+id/edit_s20_quntity"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/edit_height_lead"
+                            android:layout_margin="5dp"
+                            android:layout_weight="1"
+                            android:maxLength="3"
+                            android:background="@drawable/round_corner"
+                            android:inputType="number"
+                            android:paddingLeft="4dp"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp" />
+                        <EditText
+                            android:id="@+id/edit_s20_value"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/edit_height_lead"
+                            android:layout_margin="5dp"
+                            android:layout_weight="1"
+                            android:maxLength="5"
+                            android:background="@drawable/round_corner"
+                            android:inputType="number"
+                            android:paddingLeft="4dp"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:orientation="horizontal"
+                        android:weightSum="3">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_weight="1"
+                            android:text="S100:"
+                            android:textColor="#000"
+                            android:textSize="22sp"></TextView>
+
+                        <EditText
+                            android:id="@+id/edit_s100_quntity"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/edit_height_lead"
+                            android:layout_margin="5dp"
+                            android:maxLength="3"
+                            android:layout_weight="1"
+                            android:background="@drawable/round_corner"
+                            android:inputType="number"
+                            android:paddingLeft="4dp"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp" />
+                        <EditText
+                            android:id="@+id/edit_s100_value"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/edit_height_lead"
+                            android:layout_margin="5dp"
+                            android:maxLength="5"
+                            android:layout_weight="1"
+                            android:background="@drawable/round_corner"
+                            android:inputType="number"
+                            android:paddingLeft="4dp"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:orientation="horizontal"
+                        android:weightSum="3">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_weight="1"
+                            android:text="S300B:"
+                            android:textColor="#000"
+                            android:textSize="22sp"></TextView>
+
+                        <EditText
+                            android:id="@+id/edit_s300b_quntity"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/edit_height_lead"
+                            android:maxLength="3"
+                            android:layout_margin="5dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/round_corner"
+                            android:inputType="number"
+                            android:paddingLeft="4dp"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp" />
+                        <EditText
+                            android:id="@+id/edit_s300b_value"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/edit_height_lead"
+                            android:maxLength="5"
+                            android:layout_margin="5dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/round_corner"
+                            android:inputType="number"
+                            android:paddingLeft="4dp"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:orientation="horizontal"
+                        android:weightSum="3">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_weight="1"
+                            android:text="S320:"
+                            android:textColor="#000"
+                            android:textSize="22sp"></TextView>
+
+                        <EditText
+                            android:id="@+id/edit_s320_quntity"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/edit_height_lead"
+                            android:layout_margin="5dp"
+                            android:layout_weight="1"
+                            android:maxLength="3"
+                            android:background="@drawable/round_corner"
+                            android:inputType="number"
+                            android:paddingLeft="4dp"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp" />
+                        <EditText
+                            android:id="@+id/edit_s320_value"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/edit_height_lead"
+                            android:layout_margin="5dp"
+                            android:layout_weight="1"
+                            android:maxLength="5"
+                            android:background="@drawable/round_corner"
+                            android:inputType="number"
+                            android:paddingLeft="4dp"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:orientation="horizontal"
+                        android:weightSum="3">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_weight="1"
+                            android:text="D330T-P:"
+                            android:textColor="#000"
+                            android:textSize="22sp"></TextView>
+
+                        <EditText
+                            android:id="@+id/edit_d330t_quntity"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/edit_height_lead"
+                            android:layout_margin="5dp"
+                            android:maxLength="3"
+                            android:layout_weight="1"
+                            android:background="@drawable/round_corner"
+                            android:inputType="number"
+                            android:paddingLeft="4dp"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp" />
+                        <EditText
+                            android:id="@+id/edit_d330t_value"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/edit_height_lead"
+                            android:layout_margin="5dp"
+                            android:maxLength="5"
+                            android:layout_weight="1"
+                            android:background="@drawable/round_corner"
+                            android:inputType="number"
+                            android:paddingLeft="4dp"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:orientation="horizontal"
+                        android:weightSum="3">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_weight="1"
+                            android:text="S400:"
+                            android:textColor="#000"
+                            android:textSize="22sp"></TextView>
+
+                        <EditText
+                            android:id="@+id/edit_s400_quntity"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/edit_height_lead"
+                            android:layout_margin="5dp"
+                            android:maxLength="3"
+                            android:layout_weight="1"
+                            android:background="@drawable/round_corner"
+                            android:inputType="number"
+                            android:paddingLeft="4dp"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp" />
+                        <EditText
+                            android:id="@+id/edit_s400_value"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/edit_height_lead"
+                            android:layout_margin="5dp"
+                            android:maxLength="5"
+                            android:layout_weight="1"
+                            android:background="@drawable/round_corner"
+                            android:inputType="number"
+                            android:paddingLeft="4dp"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:orientation="horizontal"
+                        android:weightSum="3">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_weight="1"
+                            android:text="S500:"
+                            android:textColor="#000"
+                            android:textSize="22sp"></TextView>
+
+                        <EditText
+                            android:id="@+id/edit_s500_quntity"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/edit_height_lead"
+                            android:layout_margin="5dp"
+                            android:layout_weight="1"
+                            android:maxLength="3"
+                            android:background="@drawable/round_corner"
+                            android:inputType="number"
+                            android:paddingLeft="4dp"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp" />
+                        <EditText
+                            android:id="@+id/edit_s500_value"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/edit_height_lead"
+                            android:layout_margin="5dp"
+                            android:layout_weight="1"
+                            android:maxLength="5"
+                            android:background="@drawable/round_corner"
+                            android:inputType="number"
+                            android:paddingLeft="4dp"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:orientation="horizontal"
+                        android:weightSum="3">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_weight="1"
+                            android:text="SF30:"
+                            android:textColor="#000"
+                            android:textSize="22sp"></TextView>
+
+                        <EditText
+                            android:id="@+id/edit_sf30_quntity"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/edit_height_lead"
+                            android:layout_margin="5dp"
+                            android:layout_weight="1"
+                            android:maxLength="3"
+                            android:background="@drawable/round_corner"
+                            android:inputType="number"
+                            android:paddingLeft="4dp"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp" />
+                        <EditText
+                            android:id="@+id/edit_sf30_value"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/edit_height_lead"
+                            android:layout_margin="5dp"
+                            android:layout_weight="1"
+                            android:maxLength="5"
+                            android:background="@drawable/round_corner"
+                            android:inputType="number"
+                            android:paddingLeft="4dp"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:orientation="horizontal"
+                        android:weightSum="3">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_weight="1"
+                            android:text="S500R:"
+                            android:textColor="#000"
+                            android:textSize="22sp"></TextView>
+
+                        <EditText
+                            android:id="@+id/edit_s500r_quntity"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/edit_height_lead"
+                            android:layout_margin="5dp"
+                            android:layout_weight="1"
+                            android:maxLength="3"
+                            android:background="@drawable/round_corner"
+                            android:inputType="number"
+                            android:paddingLeft="4dp"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp" />
+                        <EditText
+                            android:id="@+id/edit_s500r_value"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/edit_height_lead"
+                            android:layout_margin="5dp"
+                            android:layout_weight="1"
+                            android:maxLength="5"
+                            android:background="@drawable/round_corner"
+                            android:inputType="number"
+                            android:paddingLeft="4dp"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:orientation="horizontal"
+                        android:weightSum="3">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_weight="1"
+                            android:text="S550:"
+                            android:textColor="#000"
+                            android:textSize="22sp"></TextView>
+
+                        <EditText
+                            android:id="@+id/edit_s550_quntity"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/edit_height_lead"
+                            android:layout_margin="5dp"
+                            android:layout_weight="1"
+                            android:maxLength="3"
+                            android:background="@drawable/round_corner"
+                            android:inputType="number"
+                            android:paddingLeft="4dp"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp" />
+                        <EditText
+                            android:id="@+id/edit_s550_value"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/edit_height_lead"
+                            android:layout_margin="5dp"
+                            android:layout_weight="1"
+                            android:maxLength="5"
+                            android:background="@drawable/round_corner"
+                            android:inputType="number"
+                            android:paddingLeft="4dp"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp" />
+                    </LinearLayout>
+                    <Button
+                        android:id="@+id/buttonsubmit"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginLeft="5dp"
+                        android:background="@color/colorPrimary"
+                        android:text="SUBMIT"
+                        android:textColor="#ffffff" />
+                </LinearLayout>
+            </ScrollView>
+
+        </RelativeLayout>
+    </LinearLayout>
+
+</layout>

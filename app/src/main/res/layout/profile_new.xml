@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Large Text"
+        android:id="@+id/textViewUserEmail"
+        android:textColor="#000000"
+        android:textStyle="bold"
+        android:textSize="19dp"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center_horizontal"
+       />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:fillViewport="true"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="match_parent"
+            >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:weightSum="2"
+        android:layout_marginTop="10dp"
+        android:layout_height="120dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/card_view"
+             android:id="@+id/lin_newlead"
+            android:gravity="center"
+             android:orientation="vertical"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_width="@dimen/home_image"
+                android:src="@drawable/lead_image"
+                android:layout_marginTop="7dp"
+                android:layout_height="@dimen/home_image" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="New Lead"
+                android:gravity="center"
+                 android:layout_marginTop="5dp"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/card_view"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:id="@+id/lin_updatelead"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_width="@dimen/home_image"
+                android:src="@drawable/icon_updatedealer"
+                android:layout_height="@dimen/home_image" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="Update Lead"
+                android:layout_marginTop="5dp"
+                android:gravity="center"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:weightSum="2"
+        android:layout_marginTop="10dp"
+        android:layout_height="120dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/card_view"
+            android:id="@+id/lin_marketvisit"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_width="@dimen/home_image"
+                android:src="@drawable/marketing"
+                android:layout_marginTop="5dp"
+                android:layout_height="@dimen/home_image" />
+            <TextView
+                android:layout_width="match_parent"
+                android:text="Market Visit"
+                android:gravity="center"
+                android:layout_marginTop="5dp"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/lin_sku"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/card_view"
+            android:visibility="visible"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:layout_height="match_parent">
+            <ImageView
+                android:layout_width="@dimen/home_image"
+                android:src="@drawable/sku"
+                android:layout_height="@dimen/home_image" />
+            <TextView
+                android:layout_width="match_parent"
+                android:text="Closing Stock"
+                android:gravity="center"
+                android:layout_marginTop="5dp"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:weightSum="2"
+        android:layout_marginTop="10dp"
+        android:layout_height="120dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:background="@drawable/card_view"
+            android:id="@+id/lin_ifc_sale"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_width="@dimen/home_image"
+                android:src="@drawable/sales"
+                android:layout_height="@dimen/home_image" />
+            <TextView
+                android:layout_width="match_parent"
+                android:text="IFC Consumer Lead/Sale"
+                android:layout_marginTop="5dp"
+                android:gravity="center"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:id="@+id/lin_ifc"
+            android:gravity="center"
+            android:background="@drawable/card_view"
+            android:orientation="vertical"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_width="@dimen/home_image"
+                android:src="@drawable/ifc"
+                android:layout_height="@dimen/home_image" />
+            <TextView
+                android:layout_width="match_parent"
+                android:text="IFC Retail Calling"
+                android:layout_marginTop="5dp"
+                android:gravity="center"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:weightSum="2"
+        android:layout_marginTop="10dp"
+        android:layout_height="120dp">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:id="@+id/lin_au_finance"
+            android:gravity="center"
+            android:background="@drawable/card_view"
+            android:orientation="vertical"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_width="@dimen/home_image"
+                android:src="@drawable/au_finance"
+                android:layout_height="@dimen/home_image" />
+            <TextView
+                android:layout_width="match_parent"
+                android:text="AU Finance Lead"
+                android:layout_marginTop="5dp"
+                android:gravity="center"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:id="@+id/lin_sep"
+            android:gravity="center"
+            android:background="@drawable/card_view"
+            android:orientation="vertical"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_width="@dimen/home_image"
+                android:src="@drawable/sep"
+                android:layout_height="@dimen/home_image" />
+            <TextView
+                android:layout_width="match_parent"
+                android:text="Solar Energy Promoter"
+                android:layout_marginTop="5dp"
+                android:gravity="center"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+    </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:weightSum="2"
+                android:layout_marginTop="10dp"
+                android:layout_height="120dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:id="@+id/lin_about"
+                    android:background="@drawable/card_view"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:layout_width="@dimen/home_image"
+                        android:src="@drawable/icon_about"
+                        android:layout_height="@dimen/home_image" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:text="About"
+                        android:gravity="center"
+                        android:layout_marginTop="5dp"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                     android:gravity="center"
+                    android:orientation="vertical"
+                    android:layout_height="match_parent">
+
+
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

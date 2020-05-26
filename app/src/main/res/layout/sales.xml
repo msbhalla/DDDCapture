@@ -1,0 +1,393 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scrollbars = "vertical"
+    android:fillViewport="true"
+    android:scrollbarStyle="insideInset">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:background="#E8E8E8"
+        tools:context=".AddNewLead">
+
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true">
+
+            <TextView
+                android:id="@+id/textViewAddLead"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#000000"
+                android:visibility="gone"
+                android:textSize="20sp"
+                android:layout_margin="15dp"
+                android:text="Please add details of lead here. \n(All fields are mandatory)"
+                />
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:visibility="gone"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp">
+
+                <EditText
+                    android:id="@+id/editTextSalesRepEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/edit_height_lead"
+                    android:layout_margin="5dp"
+                    android:background="#FFFFFF"
+                    android:ems="10"
+                    android:hint="Your @dlight.com mail address"
+                    android:inputType="textEmailAddress"
+                    android:paddingLeft="5dp"
+                    android:paddingTop="5dp"
+                    android:paddingRight="5dp"
+                    android:paddingBottom="5dp"
+                    android:text="@string/emailAddress"
+                    /></android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:layout_marginTop="5dp">
+
+                <EditText
+                    android:id="@+id/editTextSalesRepID"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/edit_height_lead"
+                    android:layout_margin="5dp"
+                    android:background="#FFFFFF"
+                    android:ems="10"
+                    android:hint="Enter your employee NAME"
+                    android:inputType="text"
+                    android:paddingLeft="5dp"
+                    android:paddingTop="5dp"
+                    android:paddingRight="5dp"
+                    android:paddingBottom="5dp"
+                    />
+                /></android.support.design.widget.TextInputLayout>
+            <Spinner
+                android:id="@+id/spinnerRegion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                 android:layout_marginTop="10dp"
+                android:background="@android:drawable/btn_dropdown"
+                android:spinnerMode="dropdown" />
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginTop="8dp"
+                android:layout_height="35dp">
+
+                <RadioButton
+                    android:id="@+id/radio_customer"
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:checked="true"
+                    android:layout_height="wrap_content"
+                    android:text="Customer" />
+
+                <RadioButton
+                    android:id="@+id/radio_dealer"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Dealer" />
+            </RadioGroup>
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginTop="8dp"
+                android:layout_height="35dp">
+
+
+                <RadioButton
+                    android:id="@+id/radio_lead"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:checked="true"
+                    android:layout_height="wrap_content"
+                    android:text="Lead" />
+
+                <RadioButton
+                    android:id="@+id/radio_sale"
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="Sale" />
+            </RadioGroup>
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp">
+
+                <EditText
+                    android:id="@+id/editTextDealerName"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/edit_height_lead"
+                    android:layout_margin="5dp"
+                    android:background="#FFFFFF"
+                    android:hint="Customer/Dealer Name"
+                    android:paddingLeft="4dp"
+                     android:inputType="text"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    />
+                /></android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:id="@+id/txtinput_shopname"
+                android:visibility="gone"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp">
+
+                <EditText
+                    android:id="@+id/edit_shopname"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/edit_height_lead"
+                    android:layout_margin="5dp"
+                    android:background="#FFFFFF"
+                    android:paddingLeft="4dp"
+                    android:hint="Shop Name"
+                    android:inputType="text"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    />
+                /></android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_marginTop="5dp"
+                android:layout_height="60dp"
+                >
+                <EditText
+                    android:id="@+id/editTextContactNo"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/edit_height_lead"
+                    android:maxLength="10"
+                    android:layout_margin="5dp"
+                    android:paddingLeft="4dp"
+                    android:hint="Enter phone number (10 digits)"
+                    android:background="#FFFFFF"
+                    android:inputType="number"
+                    />
+            </android.support.design.widget.TextInputLayout>
+
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="5dp">
+                <EditText
+                    android:id="@+id/editTextDealerAddress1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="5dp"
+                    android:hint="Enter address line 1"
+                    android:paddingLeft="4dp"
+                    android:background="#FFFFFF"
+                    android:inputType="text"
+                    />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginTop="5dp">
+                <EditText
+                    android:id="@+id/editTextDealerAddress2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="5dp"
+                    android:hint="Enter address line 2"
+                    android:background="#FFFFFF"
+                    android:paddingLeft="4dp"
+                    android:inputType="text"
+                    />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginTop="5dp">
+                <EditText
+                    android:id="@+id/editTextCityName"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="5dp"
+                    android:paddingLeft="4dp"
+                    android:hint="City"
+                    android:background="#FFFFFF"
+                    android:ems="10"
+                    android:inputType="text"
+                    />
+            </android.support.design.widget.TextInputLayout>
+
+            <Spinner
+                android:id="@+id/spinnerState"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:paddingTop="2dp"
+                android:paddingLeft="2dp"
+                android:paddingBottom="2dp"
+                android:paddingRight="2dp"
+                android:background="@android:drawable/btn_dropdown"
+                android:spinnerMode="dropdown"
+                android:prompt="@string/spinner_state"
+                />
+            <Spinner
+                android:id="@+id/spinnerDis"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:paddingTop="2dp"
+                android:paddingLeft="2dp"
+                android:paddingBottom="2dp"
+                android:paddingRight="2dp"
+                android:background="@android:drawable/btn_dropdown"
+                android:spinnerMode="dropdown"
+                android:prompt="@string/spinner_state"
+                />
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:visibility="gone"
+                android:id="@+id/txt_inout_otherdist"
+                android:layout_marginTop="5dp">
+                <EditText
+                    android:id="@+id/editother_dist"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="5dp"
+                    android:paddingLeft="4dp"
+                    android:hint="Other District"
+                    android:background="#FFFFFF"
+                    android:ems="10"
+                    android:inputType="text"
+                    />
+            </android.support.design.widget.TextInputLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:layout_margin="5dp"
+                android:weightSum="2"
+                android:layout_height="55dp">
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    >
+
+                    <EditText
+                        android:id="@+id/edit_product"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/edit_height_lead"
+                        android:layout_marginRight="4dp"
+                        android:paddingLeft="4dp"
+                        android:background="#FFFFFF"
+                        android:hint="Product Name"
+
+                        />
+                    /></android.support.design.widget.TextInputLayout>
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    >
+
+                    <EditText
+                        android:id="@+id/edit_product_qty"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/edit_height_lead"
+                        android:background="#FFFFFF"
+                        android:paddingLeft="4dp"
+                        android:maxLength="10"
+                        android:hint="Quantity"
+                        android:inputType="phone"
+
+                        />
+                    /></android.support.design.widget.TextInputLayout>
+            </LinearLayout>
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginTop="5dp">
+                <EditText
+                    android:id="@+id/editAmount"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="5dp"
+                    android:paddingLeft="4dp"
+                    android:maxLength="7"
+                    android:hint="Amount"
+                     android:background="#FFFFFF"
+                    android:ems="10"
+                    android:inputType="number"
+                    />
+            </android.support.design.widget.TextInputLayout>
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp">
+
+                <EditText
+                    android:id="@+id/editTextDetails"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:background="#FFFFFF"
+                    android:ems="10"
+                    android:hint="Details of discussion"
+                    android:inputType="textMultiLine"
+                    android:lines="4"
+                    android:paddingLeft="5dp"
+                    android:paddingTop="5dp"
+                    android:paddingRight="5dp"
+                    android:paddingBottom="5dp"
+                    android:singleLine="false"
+                    tools:singleLine="false"
+                    android:minLines="4"
+                    android:gravity="top|left"
+                    android:maxLines="10"
+                    android:scrollbars="vertical"
+
+                    />
+            </android.support.design.widget.TextInputLayout>
+
+            <Button
+                android:id="@+id/buttonSaveLead"
+                android:layout_width="match_parent"
+                android:background="@color/colorPrimary"
+                android:textColor="#ffffff"
+                android:layout_marginTop="5dp"
+                android:layout_margin="5dp"
+                android:layout_height="wrap_content"
+                android:text="Sales"
+                />
+
+            <TextView
+                android:id="@+id/textViewLocation"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:textAlignment="center"
+                android:textSize="10sp" />
+        </LinearLayout>
+    </RelativeLayout>
+</ScrollView>
